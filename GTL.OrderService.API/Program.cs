@@ -1,4 +1,5 @@
 using System.Reflection;
+using GTL.OrderService.Persistence.Configuration;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,13 +19,18 @@ if (env.IsDevelopment())
 }
 #endregion
 
-
 #region Logger
 
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(configuration)
     .CreateLogger();
 builder.Host.UseSerilog();
+
+#endregion
+
+#region Persistence
+
+builder.Services.AddOrderServicePersistence(configuration);
 
 #endregion
 
