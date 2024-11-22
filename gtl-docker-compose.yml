@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver_db
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: ${SAS_SERVER_PASSWORD}
+      ACCEPT_EULA: "Y"
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  seq:
+    image: datalust/seq
+    container_name: gtl_seq
+    environment:
+      - ACCEPT_EULA=Y
+      - SEQ_USER=${SEQ_USER}
+      - SEQ_PASSWORD=${SEQ_PASSWORD}
+    ports:
+      - "5349:80"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: gtl_rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+
+  redis:
+    image: redis:7
+    container_name: redis_cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  sql_data:
+    driver: local
+  redis_data:
+    driver: local
