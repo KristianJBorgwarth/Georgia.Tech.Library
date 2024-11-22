@@ -1,0 +1,9 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="true" type="CompoundRunConfigurationType">
+    <toRun name="GTL.OrderService.API: IIS Express" type="LaunchSettings" />
+    <toRun name="GTL.SearchService.API: IIS Express" type="LaunchSettings" />
+    <toRun name="Georgia.Tech.Library: IIS Express" type="LaunchSettings" />
+    <toRun name="Webshop.Payment.Api: IIS Express" type="LaunchSettings" />
+    <method v="2" />
+  </configuration>
+</component>
