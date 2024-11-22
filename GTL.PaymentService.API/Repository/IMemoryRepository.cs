@@ -1,7 +1,8 @@
 ﻿
 using PSU_PaymentGateway.Models;
+using Webshop.Payment.Api.Models;
 
-namespace PSU_PaymentGateway.Repository
+namespace Webshop.Payment.Api.Repository
 {
     public interface IMemoryRepository
     {

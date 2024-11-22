@@ -1,22 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Prometheus;
-using PSU_PaymentGateway.Repository;
-using PSU_PaymentGateway.Services;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Webshop.Payment.Api.Repository;
+using Webshop.Payment.Api.Services;
 
-namespace PSU_PaymentGateway
+namespace Webshop.Payment.Api
 {
     public class Startup
     {
@@ -55,7 +49,7 @@ namespace PSU_PaymentGateway
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();               
+                app.UseDeveloperExceptionPage();
             }
 
             app.UseSwagger();
@@ -75,7 +69,7 @@ namespace PSU_PaymentGateway
             loggerFactory.AddSerilog();
 
             //enable prometheus metrics
-            app.UseHttpMetrics();            
+            app.UseHttpMetrics();
             app.UseHealthChecks("/health");
             app.UseMetricServer();
         }

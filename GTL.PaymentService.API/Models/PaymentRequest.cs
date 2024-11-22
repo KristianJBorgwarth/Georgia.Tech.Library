@@ -1,6 +1,6 @@
 ﻿using EnsureThat;
 
-namespace PSU_PaymentGateway.Models
+namespace Webshop.Payment.Api.Models
 {
     /// <summary>
     /// This is the entity payment

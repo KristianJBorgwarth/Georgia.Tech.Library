@@ -1,15 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PSU_PaymentGateway.Models;
-using PSU_PaymentGateway.Repository;
-using PSU_PaymentGateway.Services;
-using Serilog;
-using System;
-using System.Threading.Tasks;
+using Webshop.Payment.Api.Models;
+using Webshop.Payment.Api.Repository;
+using Webshop.Payment.Api.Services;
 
-namespace PSU_PaymentGateway.Controllers
+namespace Webshop.Payment.Api.Controllers
 {
     [Route("api/payment")]
     [ApiController]
@@ -38,7 +34,7 @@ namespace PSU_PaymentGateway.Controllers
             }
 
             //simulate process
-            Result<Payment> paymentResult = Payment.Create(request.CardNumber, request.ExpirationDate, request.CVC);
+            Result<Models.Payment> paymentResult = Models.Payment.Create(request.CardNumber, request.ExpirationDate, request.CVC);
             if (paymentResult.IsSuccess)
             {
                 Result<Transaction> transactionResult = Transaction.Create(request.Amount, paymentResult.Value);

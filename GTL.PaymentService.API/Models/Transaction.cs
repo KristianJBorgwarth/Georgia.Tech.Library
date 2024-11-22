@@ -1,6 +1,7 @@
 ﻿using EnsureThat;
 using Microsoft.Extensions.Logging;
 using System;
+using Webshop.Payment.Api.Models;
 
 namespace PSU_PaymentGateway.Models
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PSU_PaymentGateway.Models
+namespace Webshop.Payment.Api.Models
 {
     public class Result
     {

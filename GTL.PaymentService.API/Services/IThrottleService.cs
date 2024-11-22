@@ -1,4 +1,4 @@
-﻿namespace PSU_PaymentGateway.Services
+﻿namespace Webshop.Payment.Api.Services
 {
     public interface IThrottleService
     {

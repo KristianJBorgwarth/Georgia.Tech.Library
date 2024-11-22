@@ -1,8 +1,8 @@
-﻿using EnsureThat;
+﻿using System;
+using EnsureThat;
 using Microsoft.Extensions.Configuration;
-using System;
 
-namespace PSU_PaymentGateway.Services
+namespace Webshop.Payment.Api.Services
 {
     public class ThrottleService : IThrottleService
     {
@@ -27,7 +27,7 @@ namespace PSU_PaymentGateway.Services
             else
             {
                 //set the last request
-                this.lastRequestms = DateTime.Now.Ticks / 10000L;                                
+                this.lastRequestms = DateTime.Now.Ticks / 10000L;
                 //not throttled
                 return true;
             }
