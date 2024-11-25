@@ -1,4 +1,6 @@
 ﻿using System.Reflection;
+using GTL.Messaging.RabbitMq.Messages;
+using GTL.Messaging.RabbitMq.Producer;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -51,6 +53,13 @@ public static class MassTransitConfiguration
             });
 
         });
+        return services;
+    }
+
+    public static IServiceCollection AddProducer<TMessage>(this IServiceCollection services)
+        where TMessage : BaseMessage
+    {
+        services.AddScoped<IProducer<TMessage>, Producer<TMessage>>();
         return services;
     }
 }

@@ -36,6 +36,7 @@ builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly());
 
 #endregion
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

@@ -1,5 +1,6 @@
 using System.Reflection;
 using GTL.Messaging.RabbitMq.Configuration;
+using GTL.Messaging.RabbitMq.Messages.OrderMessages;
 using GTL.OrderService.Persistence.Configuration;
 using Serilog;
 
@@ -31,7 +32,8 @@ builder.Host.UseSerilog();
 
 #region Persistence
 
-builder.Services.AddOrderServicePersistence(configuration);
+builder.Services.AddOrderServicePersistence(configuration)
+    .AddProducer<OrderProcessedMessage>();
 
 #endregion
 
@@ -42,6 +44,7 @@ builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly());
 
 #endregion
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -56,5 +59,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 Log.Information("Order API is starting...");
+
+app.MapControllers();
 
 app.Run();
