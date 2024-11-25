@@ -1,4 +1,5 @@
 using System.Reflection;
+using GTL.Messaging.RabbitMq.Configuration;
 using GTL.OrderService.Persistence.Configuration;
 using Serilog;
 
@@ -34,6 +35,12 @@ builder.Services.AddOrderServicePersistence(configuration);
 
 #endregion
 
+#region MassTransit (Messaging)
+
+builder.Services.Configure<RabbitMqSettings>(configuration.GetSection("RabbitMq"));
+builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly());
+
+#endregion
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

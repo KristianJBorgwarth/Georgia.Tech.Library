@@ -1,4 +1,5 @@
 using System.Reflection;
+using GTL.Messaging.RabbitMq.Configuration;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +26,13 @@ Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(configuration)
     .CreateLogger();
 builder.Host.UseSerilog();
+
+#endregion
+
+#region MassTransit (Messaging)
+
+builder.Services.Configure<RabbitMqSettings>(configuration.GetSection("RabbitMq"));
+builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly());
 
 #endregion
 
