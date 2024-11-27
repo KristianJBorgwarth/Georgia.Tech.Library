@@ -14,4 +14,8 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\GTL.Messaging.RabbitMq\GTL.Messaging.RabbitMq.csproj" />
+    </ItemGroup>
+
 </Project>

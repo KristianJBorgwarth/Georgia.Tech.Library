@@ -23,4 +23,8 @@
       <Folder Include="Services\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\GTL.Messaging.RabbitMq\GTL.Messaging.RabbitMq.csproj" />
+    </ItemGroup>
+
 </Project>

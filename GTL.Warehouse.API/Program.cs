@@ -1,5 +1,5 @@
 using System.Reflection;
-using MassTransit;
+using GTL.Messaging.RabbitMq.Configuration;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,39 +28,14 @@ builder.Host.UseSerilog();
 
 #endregion
 
-#region MassTransit Configuration
+#region MassTransit (Messaging)
 
-builder.Services.AddMassTransit(x =>
-{
-    // Add consumers here
-    x.AddConsumer<ReduceBookQuantityConsumer>();
-    x.AddConsumer<CustomerDeleteConsumer>();
-    x.AddConsumer<ProcessOrderFailedConsumer>();
-
-    // Configure RabbitMQ as the message transport
-    x.UsingRabbitMq((context, cfg) =>
-    {
-        cfg.Host(configuration["RabbitMq:Host"], h =>
-        {
-            h.Username(configuration["RabbitMq:Username"]);
-            h.Password(configuration["RabbitMq:Password"]);
-        });
-
-        // Register consumers
-        cfg.ReceiveEndpoint("warehouse-queue", e =>
-        {
-            e.ConfigureConsumer<ReduceBookQuantityConsumer>(context);
-            e.ConfigureConsumer<CustomerDeleteConsumer>(context);
-            e.ConfigureConsumer<ProcessOrderFailedConsumer>(context);
-        });
-    });
-});
-
-// Add MassTransit hosted service
-builder.Services.AddMassTransitHostedService();
+builder.Services.Configure<RabbitMqSettings>(configuration.GetSection("RabbitMq"));
+builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly());
 
 #endregion
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

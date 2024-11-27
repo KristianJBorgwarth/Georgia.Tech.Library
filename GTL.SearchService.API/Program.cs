@@ -1,4 +1,5 @@
 using System.Reflection;
+using GTL.Messaging.RabbitMq.Configuration;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,14 @@ builder.Host.UseSerilog();
 
 #endregion
 
+#region MassTransit (Messaging)
+
+builder.Services.Configure<RabbitMqSettings>(configuration.GetSection("RabbitMq"));
+builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly());
+
+#endregion
+
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
