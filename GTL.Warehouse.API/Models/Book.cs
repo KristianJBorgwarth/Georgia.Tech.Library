@@ -1,4 +1,4 @@
-﻿namespace Georgia.Tech.Library.Models
+﻿namespace GTL.Warehouse.Models
 {
     public class Book
     {

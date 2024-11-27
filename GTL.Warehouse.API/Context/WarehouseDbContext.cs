@@ -1,7 +1,8 @@
-﻿namespace Georgia.Tech.Library.Context
+﻿namespace GTL.WareHouse.Context
 {
-    using Georgia.Tech.Library.Models;
+    using GTL.WareHouse.Models;
     using Microsoft.EntityFrameworkCore;
+
     public class WarehouseDbContext : DbContext
     {
         public DbSet<Book> Books { get; set; }
