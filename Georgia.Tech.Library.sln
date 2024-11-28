@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.Warehouse.API", "GTL.Warehouse.API\GTL.Warehouse.API.csproj", "{A7A3B76D-E686-4BDB-8237-17E6A4F8FCFD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{895FF2DD-2385-4A19-BF4A-EE4B323F315C} = {895FF2DD-2385-4A19-BF4A-EE4B323F315C}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}"
 EndProject
@@ -35,7 +38,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E87E56
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.Messaging.RabbitMq", "GTL.Messaging.RabbitMq\GTL.Messaging.RabbitMq.csproj", "{8679AF14-4B9D-4DBB-80DA-665769A57551}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTL.Warehouse.Persistence", "GTL.Warehouse.Persistence\GTL.Warehouse.Persistence.csproj", "{895FF2DD-2385-4A19-BF4A-EE4B323F315C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.Warehouse.Persistence", "GTL.Warehouse.Persistence\GTL.Warehouse.Persistence.csproj", "{895FF2DD-2385-4A19-BF4A-EE4B323F315C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,15 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using GTL.Warehouse.Data;
-using GTL.Warehouse.Models.Book;
+using GTL.Warehouse.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
+using GTL.Warehouse.Persistence.Entities.Book;
 
 
 namespace GTL.Warehouse.API.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class BooksController : ControllerBase
     {
         private readonly WarehouseDbContext _context;
@@ -36,6 +36,21 @@ namespace GTL.Warehouse.API.Controllers
                 return NotFound(new { Message = $"Book with ID {id} not found." });
             }
             return Ok(book);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateBook([FromBody] Book newBook)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            newBook.Id = Guid.NewGuid();
+            _context.Books.Add(newBook);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetBookById), new {id = newBook.Id}, newBook);
         }
     }
 }

@@ -9,7 +9,7 @@ using GTL.Warehouse.Persistence.Entities.Book;
 
 namespace GTL.Warehouse.Persistence.ModelConfigurations
 {
-    internal class BookModelConfiguration
+    public class BookModelConfiguration : IEntityTypeConfiguration<Book>
     {
         public void Configure(EntityTypeBuilder<Book> builder)
         {
@@ -20,6 +20,5 @@ namespace GTL.Warehouse.Persistence.ModelConfigurations
             builder.Property(b => b.Quantity).IsRequired();
             builder.Property(b => b.Price).IsRequired();
         }
-
     }
 }
