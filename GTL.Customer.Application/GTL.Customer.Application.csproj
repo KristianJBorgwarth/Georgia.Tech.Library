@@ -7,11 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\GTL.Domain\GTL.Domain.csproj" />
+      <ProjectReference Include="..\GTL.Application\GTL.Application.csproj" />
+      <ProjectReference Include="..\GTL.Customer.Domain\GTL.Customer.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
     </ItemGroup>
 
 </Project>
