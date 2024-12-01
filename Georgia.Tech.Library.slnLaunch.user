@@ -1,0 +1,23 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "GTL.Warehouse.API\\GTL.Warehouse.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "GTL.OrderService.API\\GTL.OrderService.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "GTL.SearchService.API\\GTL.SearchService.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "GTL.PaymentService.API\\GTL.PaymentService.API.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

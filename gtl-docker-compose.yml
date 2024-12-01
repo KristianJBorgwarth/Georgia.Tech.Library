@@ -5,7 +5,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlserver_db
     ports:
-      - "1433:1433"
+      - "1434:1433"
     environment:
       SA_PASSWORD: ${SAS_SERVER_PASSWORD}
       ACCEPT_EULA: "Y"
