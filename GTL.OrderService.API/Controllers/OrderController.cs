@@ -23,4 +23,53 @@ public class OrderController : ControllerBase
         await _producer.PublishMessageAsync(new OrderProcessedMessage(100, "thisworks", Guid.NewGuid()));
         return Ok();
     }
+
+    [HttpPost]
+    [Route("Get-order")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetOrder(Guid id)
+    {
+        return Ok();
+    }
+
+    [HttpPost]
+    [Route("GetAll-order")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetAllOrders()
+    {
+        return Ok();
+    }
+
+    [HttpPost]
+    [Route("Create-order")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> CreateOrder()
+    {
+        return Ok();
+    }
+
+    [HttpPost]
+    [Route("Update-order")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateOrder()
+    {
+        return Ok();
+    }
+
+    [HttpPost]
+    [Route("Delete-order")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> DeleteOrder(Guid id)
+    {
+        return Ok();
+    }
+
+
+
+
 }

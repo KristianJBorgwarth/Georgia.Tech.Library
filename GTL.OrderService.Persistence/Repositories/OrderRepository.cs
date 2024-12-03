@@ -13,14 +13,35 @@ public class OrderRepository : IOrderRepository
         _dbContext = dbContext;
     }
 
-    public async Task AddAsync(Order? order)
+
+    public async Task CreateAsync(Order entity)
     {
-        await _dbContext.Orders.AddAsync(order);
+        await _dbContext.Orders.AddAsync(entity);
         await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task DeleteAsync(Order order)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteAsync(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<IEnumerable<Order>> GetAll()
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<Order?> GetByIdAsync(Guid id)
     {
         return await _dbContext.Orders.FindAsync(id);
+    }
+
+    public async Task UpdateAsync(Order entity)
+    {
+        await _dbContext.SaveChangesAsync();
     }
 }
