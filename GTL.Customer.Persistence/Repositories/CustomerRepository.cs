@@ -3,7 +3,7 @@ using GTL.Customer.Persistence.Context;
 
 namespace GTL.Customer.Persistence.Repositories;
 
-public class CustomerRepository(CustomerDbContext context) : ICustomerRepository
+public class CustomerRepository(CustomerServiceDbContext context) : ICustomerRepository
 {
     public Task<Domain.Aggregates.Customer> AddAsync(Domain.Aggregates.Customer entity, CancellationToken cancellationToken = default)
     {
