@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.Warehouse.API", "GTL.Warehouse.API\GTL.Warehouse.API.csproj", "{A7A3B76D-E686-4BDB-8237-17E6A4F8FCFD}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Warehouse", "Warehouse", "{48A5ED18-D4A0-40C7-AE1D-F61E71F51178}"
@@ -38,16 +36,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.Messaging.RabbitMq", "G
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.Warehouse.Persistence", "..\..\..\Desktop\Saved\GTL.Warehouse.Persistence\GTL.Warehouse.Persistence.csproj", "{4EFCD416-ED96-465A-B004-C6D88922A111}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.Warehouse.API", "GTL.Warehouse.API\GTL.Warehouse.API.csproj", "{E5685FBA-02CD-4E08-8EB1-CA9CB900759D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A7A3B76D-E686-4BDB-8237-17E6A4F8FCFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A7A3B76D-E686-4BDB-8237-17E6A4F8FCFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A7A3B76D-E686-4BDB-8237-17E6A4F8FCFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A7A3B76D-E686-4BDB-8237-17E6A4F8FCFD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C744E93A-9658-4135-8B68-7F995E61C256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C744E93A-9658-4135-8B68-7F995E61C256}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C744E93A-9658-4135-8B68-7F995E61C256}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -72,12 +68,15 @@ Global
 		{4EFCD416-ED96-465A-B004-C6D88922A111}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EFCD416-ED96-465A-B004-C6D88922A111}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EFCD416-ED96-465A-B004-C6D88922A111}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5685FBA-02CD-4E08-8EB1-CA9CB900759D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5685FBA-02CD-4E08-8EB1-CA9CB900759D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5685FBA-02CD-4E08-8EB1-CA9CB900759D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5685FBA-02CD-4E08-8EB1-CA9CB900759D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{A7A3B76D-E686-4BDB-8237-17E6A4F8FCFD} = {48A5ED18-D4A0-40C7-AE1D-F61E71F51178}
 		{48A5ED18-D4A0-40C7-AE1D-F61E71F51178} = {35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}
 		{50C94487-9C7C-4621-8C86-06201D28E793} = {35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}
 		{44C0B476-81D9-4ADA-86E7-79257E94C1B2} = {35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}
@@ -90,5 +89,9 @@ Global
 		{E87E56A2-CC84-4FF3-9171-228D0848AB51} = {35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}
 		{8679AF14-4B9D-4DBB-80DA-665769A57551} = {E87E56A2-CC84-4FF3-9171-228D0848AB51}
 		{4EFCD416-ED96-465A-B004-C6D88922A111} = {48A5ED18-D4A0-40C7-AE1D-F61E71F51178}
+		{E5685FBA-02CD-4E08-8EB1-CA9CB900759D} = {48A5ED18-D4A0-40C7-AE1D-F61E71F51178}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BF0A8C66-9FDB-4E52-B027-B463738E8EF7}
 	EndGlobalSection
 EndGlobal

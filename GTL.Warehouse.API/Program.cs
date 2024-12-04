@@ -1,5 +1,7 @@
 using System.Reflection;
 using GTL.Messaging.RabbitMq.Configuration;
+using GTL.Messaging.RabbitMq.Messages.OrderMessages;
+using GTL.Warehouse.Persistence.Configuration;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +30,13 @@ builder.Host.UseSerilog();
 
 #endregion
 
+#region Persistence
+
+builder.Services.AddWarehousePersistence(configuration);
+    //.AddProducer<OrderProcessedMessage>();
+
+#endregion
+
 #region MassTransit (Messaging)
 
 builder.Services.Configure<RabbitMqSettings>(configuration.GetSection("RabbitMq"));
@@ -43,6 +52,7 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+   
     app.UseSwagger();
     app.UseSwaggerUI();
 }
@@ -50,5 +60,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 Log.Information("Warehouse API is starting...");
+
+app.MapControllers();
 
 app.Run();

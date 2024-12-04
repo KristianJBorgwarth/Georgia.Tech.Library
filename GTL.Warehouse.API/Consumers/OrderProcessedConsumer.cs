@@ -1,4 +1,4 @@
-﻿using GTL.Messaging.RabbitMq.Messages.OrderMessages;
+using GTL.Messaging.RabbitMq.Messages.OrderMessages;
 using MassTransit;
 
 namespace Georgia.Tech.Library.Consumers;
