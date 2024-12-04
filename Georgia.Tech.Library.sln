@@ -24,6 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		gtl-docker-compose.yml = gtl-docker-compose.yml
+		.gitignore = .gitignore
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTL.OrderService.Persistence", "GTL.OrderService.Persistence\GTL.OrderService.Persistence.csproj", "{3F340781-0EE2-4E87-854A-BFC8FE797440}"
