@@ -16,23 +16,28 @@ public class Order : Entity
 {
     public Guid Id { get; private set; }
     public Guid UserId { get; private set; }
-    public Guid OrderItemId { get; private set; }
+    public Guid? OrderItemId { get; private set; }
     public decimal TotalPrice { get; private set; }
     public OrderStatus OrderStatus { get; private set; }
 
     private readonly List<OrderItem> _orderItems = new();
     public IReadOnlyCollection<OrderItem> OrderItems => _orderItems.AsReadOnly();
 
-    public Order(Guid userId, Guid orderItemId, OrderStatus orderStatus)
+    public Order(Guid userId, OrderStatus orderStatus)
     {
         UserId = userId;
-        OrderItemId = orderItemId;
         OrderStatus = orderStatus;
+    }
+
+    public Order(Guid userID)
+    {
+        UserId = userID;
+        OrderStatus = OrderStatus.Pending;
     }
 
     public void AddOrderLine(Guid bookId, string bookTitle, decimal price, int quantity)
     {
-        _orderItems.Add(new OrderItem(bookId, bookTitle, price, quantity));
+        _orderItems.Add(new OrderItem(Id, bookId, bookTitle, price, quantity));
         TotalPrice = CalculateTotalPrice();
     }
 

@@ -20,19 +20,14 @@ public class OrderRepository : IOrderRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(Order order)
+    public async Task DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task DeleteAsync(Guid id)
-    {
-        throw new NotImplementedException();
+        await _dbContext.Orders.Where(o => o.Id == id).ExecuteDeleteAsync();
     }
 
     public async Task<IEnumerable<Order>> GetAll()
     {
-        throw new NotImplementedException();
+        return await _dbContext.Orders.ToListAsync();
     }
 
     public async Task<Order?> GetByIdAsync(Guid id)
@@ -42,6 +37,7 @@ public class OrderRepository : IOrderRepository
 
     public async Task UpdateAsync(Order entity)
     {
+        _dbContext.Orders.Update(entity);
         await _dbContext.SaveChangesAsync();
     }
 }

@@ -20,7 +20,7 @@ public class OrderModelConfiguration : IEntityTypeConfiguration<Order>
 
         // Fremmednøgle: OrderItemId
         builder.Property(o => o.OrderItemId)
-            .IsRequired()
+            .IsRequired(false)
             .HasColumnType("uniqueidentifier");
 
         builder.HasOne<OrderItem>() // Antag, at der er en OrderItem-klasse

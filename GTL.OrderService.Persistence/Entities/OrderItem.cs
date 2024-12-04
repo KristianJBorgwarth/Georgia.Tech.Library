@@ -13,8 +13,9 @@ public class OrderItem : Entity
     public decimal Price { get; private set; }
     public int Quantity { get; private set; }
 
-    public OrderItem(Guid bookId, string bookTitle, decimal price, int quantity)
+    public OrderItem(Guid orderId, Guid bookId, string bookTitle, decimal price, int quantity)
     {
+        OrderId = orderId;
         BookId = bookId;
         BookTitle = bookTitle;
         Price = price;
