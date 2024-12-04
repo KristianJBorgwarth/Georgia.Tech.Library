@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTL.Warehouse.API", "GTL.Warehouse.API\GTL.Warehouse.API.csproj", "{A7A3B76D-E686-4BDB-8237-17E6A4F8FCFD}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.Warehouse.API", "GTL.Warehouse.API\GTL.Warehouse.API.csproj", "{A7A3B76D-E686-4BDB-8237-17E6A4F8FCFD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}"
 EndProject
@@ -10,28 +13,30 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PaymentService", "PaymentSe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrderService", "OrderService", "{44C0B476-81D9-4ADA-86E7-79257E94C1B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTL.OrderService.API", "GTL.OrderService.API\GTL.OrderService.API.csproj", "{C744E93A-9658-4135-8B68-7F995E61C256}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.OrderService.API", "GTL.OrderService.API\GTL.OrderService.API.csproj", "{C744E93A-9658-4135-8B68-7F995E61C256}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SearchService", "SearchService", "{DBC9B5C4-8B78-4653-B44F-58C844351383}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTL.SearchService.API", "GTL.SearchService.API\GTL.SearchService.API.csproj", "{766A0D16-452B-4F77-90C3-4851672EBDA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.SearchService.API", "GTL.SearchService.API\GTL.SearchService.API.csproj", "{766A0D16-452B-4F77-90C3-4851672EBDA5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CustomerService", "CustomerService", "{B4AD00B1-9877-4B5B-B9A1-FA3B1A38C1BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTL.PaymentService.API", "GTL.PaymentService.API\GTL.PaymentService.API.csproj", "{DF556B51-0DDA-4631-9825-135347E45632}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.PaymentService.API", "GTL.PaymentService.API\GTL.PaymentService.API.csproj", "{DF556B51-0DDA-4631-9825-135347E45632}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{DCE4DD56-D572-4A03-91D3-284D6CCE4639}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		gtl-docker-compose.yml = gtl-docker-compose.yml
-		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTL.OrderService.Persistence", "GTL.OrderService.Persistence\GTL.OrderService.Persistence.csproj", "{3F340781-0EE2-4E87-854A-BFC8FE797440}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.OrderService.Persistence", "GTL.OrderService.Persistence\GTL.OrderService.Persistence.csproj", "{3F340781-0EE2-4E87-854A-BFC8FE797440}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E87E56A2-CC84-4FF3-9171-228D0848AB51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTL.Messaging.RabbitMq", "GTL.Messaging.RabbitMq\GTL.Messaging.RabbitMq.csproj", "{8679AF14-4B9D-4DBB-80DA-665769A57551}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.Messaging.RabbitMq", "GTL.Messaging.RabbitMq\GTL.Messaging.RabbitMq.csproj", "{8679AF14-4B9D-4DBB-80DA-665769A57551}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.Warehouse.Persistence", "..\..\..\Desktop\Saved\GTL.Warehouse.Persistence\GTL.Warehouse.Persistence.csproj", "{4EFCD416-ED96-465A-B004-C6D88922A111}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,10 +68,17 @@ Global
 		{8679AF14-4B9D-4DBB-80DA-665769A57551}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8679AF14-4B9D-4DBB-80DA-665769A57551}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8679AF14-4B9D-4DBB-80DA-665769A57551}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EFCD416-ED96-465A-B004-C6D88922A111}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EFCD416-ED96-465A-B004-C6D88922A111}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EFCD416-ED96-465A-B004-C6D88922A111}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EFCD416-ED96-465A-B004-C6D88922A111}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{48A5ED18-D4A0-40C7-AE1D-F61E71F51178} = {35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}
 		{A7A3B76D-E686-4BDB-8237-17E6A4F8FCFD} = {48A5ED18-D4A0-40C7-AE1D-F61E71F51178}
+		{48A5ED18-D4A0-40C7-AE1D-F61E71F51178} = {35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}
 		{50C94487-9C7C-4621-8C86-06201D28E793} = {35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}
 		{44C0B476-81D9-4ADA-86E7-79257E94C1B2} = {35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}
 		{C744E93A-9658-4135-8B68-7F995E61C256} = {44C0B476-81D9-4ADA-86E7-79257E94C1B2}
@@ -77,5 +89,6 @@ Global
 		{3F340781-0EE2-4E87-854A-BFC8FE797440} = {44C0B476-81D9-4ADA-86E7-79257E94C1B2}
 		{E87E56A2-CC84-4FF3-9171-228D0848AB51} = {35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}
 		{8679AF14-4B9D-4DBB-80DA-665769A57551} = {E87E56A2-CC84-4FF3-9171-228D0848AB51}
+		{4EFCD416-ED96-465A-B004-C6D88922A111} = {48A5ED18-D4A0-40C7-AE1D-F61E71F51178}
 	EndGlobalSection
 EndGlobal
