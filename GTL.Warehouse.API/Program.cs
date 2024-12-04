@@ -1,6 +1,7 @@
 using System.Reflection;
 using GTL.Messaging.RabbitMq.Configuration;
 using GTL.Messaging.RabbitMq.Messages.OrderMessages;
+using GTL.Warehouse.API.Messages.BookCreatedMessage;
 using GTL.Warehouse.Persistence.Configuration;
 using Serilog;
 
@@ -32,8 +33,8 @@ builder.Host.UseSerilog();
 
 #region Persistence
 
-builder.Services.AddWarehousePersistence(configuration);
-    //.AddProducer<OrderProcessedMessage>();
+builder.Services.AddWarehousePersistence(configuration)
+    .AddProducer<BookCreatedMessage>();
 
 #endregion
 
