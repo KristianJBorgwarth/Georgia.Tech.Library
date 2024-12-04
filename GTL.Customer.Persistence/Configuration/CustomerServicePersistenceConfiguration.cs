@@ -1,4 +1,7 @@
-﻿using GTL.Customer.Persistence.Context;
+﻿using GTL.Application.Contracts;
+using GTL.Customer.Application.Contracts;
+using GTL.Customer.Persistence.Context;
+using GTL.Customer.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +19,9 @@ public static class CustomerServicePersistenceConfiguration
         {
             options.UseSqlServer(connectionSting);
         });
+
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }
