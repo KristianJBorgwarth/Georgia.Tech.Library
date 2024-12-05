@@ -34,9 +34,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E87E56
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.Messaging.RabbitMq", "GTL.Messaging.RabbitMq\GTL.Messaging.RabbitMq.csproj", "{8679AF14-4B9D-4DBB-80DA-665769A57551}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.Warehouse.Persistence", "..\..\..\Desktop\Saved\GTL.Warehouse.Persistence\GTL.Warehouse.Persistence.csproj", "{4EFCD416-ED96-465A-B004-C6D88922A111}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.Warehouse.Persistence", "GTL.Warehouse.Persistence\GTL.Warehouse.Persistence.csproj", "{4EFCD416-ED96-465A-B004-C6D88922A111}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTL.Warehouse.API", "GTL.Warehouse.API\GTL.Warehouse.API.csproj", "{E5685FBA-02CD-4E08-8EB1-CA9CB900759D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4EFCD416-ED96-465A-B004-C6D88922A111} = {4EFCD416-ED96-465A-B004-C6D88922A111}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

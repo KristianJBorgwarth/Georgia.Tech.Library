@@ -35,8 +35,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\Desktop\Saved\GTL.Warehouse.Persistence\GTL.Warehouse.Persistence.csproj" />
       <ProjectReference Include="..\GTL.Messaging.RabbitMq\GTL.Messaging.RabbitMq.csproj" />
+      <ProjectReference Include="..\GTL.Warehouse.Persistence\GTL.Warehouse.Persistence.csproj" />
     </ItemGroup>
 
 </Project>
