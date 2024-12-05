@@ -9,6 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\GTL.Application\GTL.Application.csproj" />
       <ProjectReference Include="..\GTL.Customer.Domain\GTL.Customer.Domain.csproj" />
+      <ProjectReference Include="..\GTL.Messaging.RabbitMq\GTL.Messaging.RabbitMq.csproj" />
     </ItemGroup>
 
     <ItemGroup>
