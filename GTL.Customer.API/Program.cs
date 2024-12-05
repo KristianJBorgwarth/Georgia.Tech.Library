@@ -1,6 +1,5 @@
-
 using System.Reflection;
-using GTL.Application.Configuration;
+using GTL.Customer.Application.Configuration;
 using GTL.Customer.Persistence.Configuration;
 using GTL.Messaging.RabbitMq.Configuration;
 using Serilog;
@@ -41,7 +40,7 @@ builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly());
 
 #region Application Layer
 
-builder.Services.AddApplicationLayer(Assembly.GetExecutingAssembly());
+builder.Services.AddCustomerApplication(Assembly.Load("GTL.Customer.Application"));
 
 #endregion
 

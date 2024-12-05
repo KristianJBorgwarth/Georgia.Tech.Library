@@ -1,27 +1,35 @@
 ﻿using GTL.Customer.Application.Contracts;
 using GTL.Customer.Persistence.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace GTL.Customer.Persistence.Repositories;
 
 public class CustomerRepository(CustomerServiceDbContext context) : ICustomerRepository
 {
-    public Task<Domain.Aggregates.Customer> AddAsync(Domain.Aggregates.Customer entity, CancellationToken cancellationToken = default)
+    public async Task<Domain.Aggregates.Customer> AddAsync(Domain.Aggregates.Customer entity, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var result = await context.Customers.AddAsync(entity, cancellationToken);
+        return result.Entity;
     }
 
-    public Task<Domain.Aggregates.Customer> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Domain.Aggregates.Customer?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return await context.Customers.FindAsync([id], cancellationToken);
     }
 
-    public Task<Domain.Aggregates.Customer> UpdateAsync(Domain.Aggregates.Customer entity, CancellationToken cancellationToken = default)
+    public Domain.Aggregates.Customer Update(Domain.Aggregates.Customer entity)
     {
-        throw new NotImplementedException();
+        var result = context.Customers.Update(entity);
+        return result.Entity;
     }
 
-    public Task<Domain.Aggregates.Customer> DeleteAsync(Domain.Aggregates.Customer entity, CancellationToken cancellationToken = default)
+    public void Delete(Domain.Aggregates.Customer entity)
     {
-        throw new NotImplementedException();
+        context.Customers.Remove(entity);
+    }
+
+    public async Task<bool> Exists(string email)
+    {
+        return await context.Customers.AnyAsync(c => c.Email.Address == email);
     }
 }
