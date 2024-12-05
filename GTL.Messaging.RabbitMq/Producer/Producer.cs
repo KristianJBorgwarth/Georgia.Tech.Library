@@ -10,7 +10,7 @@ public class Producer<TMessage> : IProducer<TMessage> where TMessage : BaseMessa
     private readonly ILogger<Producer<TMessage>> _logger;
     private readonly ISendEndpointProvider _sendEndpointProvider;
 
-    public Producer(IPublishEndpoint publishEndpoint, ILogger<Producer<TMessage>> logger, ISendEndpoint sendEndpoint, ISendEndpointProvider sendEndpointProvider)
+    public Producer(IPublishEndpoint publishEndpoint, ILogger<Producer<TMessage>> logger, ISendEndpointProvider sendEndpointProvider)
     {
         _publishEndpoint = publishEndpoint;
         _logger = logger;
