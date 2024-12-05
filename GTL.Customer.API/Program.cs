@@ -1,7 +1,10 @@
 using System.Reflection;
 using GTL.Customer.Application.Configuration;
+using GTL.Customer.Domain.Configuration;
+using GTL.Customer.Domain.Events;
 using GTL.Customer.Persistence.Configuration;
 using GTL.Messaging.RabbitMq.Configuration;
+using GTL.Messaging.RabbitMq.Messages.CustomerMessages;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,7 +37,14 @@ builder.Host.UseSerilog();
 #region MassTransit (Messaging)
 
 builder.Services.Configure<RabbitMqSettings>(configuration.GetSection("RabbitMq"));
-builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly());
+builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly())
+    .AddProducer<CustomerDeletedMessage>();
+
+#endregion
+
+#region Domain Layer
+
+builder.Services.AddCustomerDomain();
 
 #endregion
 
