@@ -41,7 +41,8 @@ builder.Services.AddWarehousePersistence(configuration)
 #region MassTransit (Messaging)
 
 builder.Services.Configure<RabbitMqSettings>(configuration.GetSection("RabbitMq"));
-builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly());
+builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly())
+    .AddProducer<BookCreatedMessage>();
 
 #endregion
 

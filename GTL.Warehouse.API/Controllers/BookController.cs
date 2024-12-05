@@ -7,6 +7,7 @@ using GTL.Warehouse.Persistence.Entities.Book;
 using MassTransit;
 using GTL.Messaging.RabbitMq.Producer;
 using GTL.Warehouse.API.Messages.BookCreatedMessage;
+using GTL.Warehouse.Persistence.Repositories;
 
 
 namespace GTL.Warehouse.API.Controllers
@@ -15,20 +16,22 @@ namespace GTL.Warehouse.API.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        private readonly WarehouseDbContext _context;
         private readonly IProducer<BookCreatedMessage> _producer;
+        private readonly IBookRepository _repository;
 
-        public BookController(WarehouseDbContext context, IProducer<BookCreatedMessage> producer)
+        public BookController(IProducer<BookCreatedMessage> producer, IBookRepository repository)
         {
-            _context = context;
             _producer = producer;
+            _repository = repository;
         }
 
+
+
         // GET: api/books
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<IActionResult> GetBooks()
         {
-            var books = await _context.Books.ToListAsync();
+            var books = await _repository.GetAllBooks();
             return Ok(books);
         }
         // GET: specific book
@@ -38,7 +41,7 @@ namespace GTL.Warehouse.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBookById(Guid id)
         {
-            var book = await _context.Books.FindAsync(id);
+           var book = await _repository.GetByIdAsync(id);
             if (book == null)
             {
                 return NotFound(new { Message = $"Book with ID {id} not found." });
@@ -57,8 +60,7 @@ namespace GTL.Warehouse.API.Controllers
             }
 
             newBook.Id = Guid.NewGuid();
-            _context.Books.Add(newBook);
-            await _context.SaveChangesAsync();
+            await _repository.AddAsync(newBook);
 
             var corelationId = Guid.NewGuid();
 
@@ -75,18 +77,20 @@ namespace GTL.Warehouse.API.Controllers
 
         // TODO: New endpoint to GET on a single word, get top 10 finds
 
+
+
         [HttpGet("title/{title}")]
-        public async Task<IActionResult> GetBookByTitle(string title)
+        public async Task<IActionResult> GetBookByFullTitle(string title)
         {
             if (string.IsNullOrEmpty(title)) { return BadRequest(new { Message = "Title must be provided" }); }
 
-            var books = await _context.Books.
-                Where(b => EF.Functions.Like(b.Title, $"%{title}")).ToListAsync();
+            var books = await _repository.GetBookByTitleAsync(title);
             if (books == null || books.Count == 0)
             {
-                return NotFound(new { Message = $"No Books found with the title containing '{title}'." });
+                return NotFound(new { Message = $"No books found with the title conatining '{title}.'" });
             }
             return Ok(books);
+                    
         }
     }
 }
