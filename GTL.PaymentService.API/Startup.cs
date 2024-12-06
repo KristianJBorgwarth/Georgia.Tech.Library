@@ -1,3 +1,6 @@
+using System.Reflection;
+using GTL.Messaging.RabbitMq.Configuration;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +27,7 @@ namespace Webshop.Payment.Api
                 .Enrich.WithProperty("Service", "Payment.Api") //enrich with the tag "service" and the name of this service
                 .WriteTo.Seq(sequrl)
                 .CreateLogger();
+
         }
 
         public IConfiguration Configuration { get; }
@@ -40,6 +44,9 @@ namespace Webshop.Payment.Api
             //add custom services
             services.AddSingleton<IMemoryRepository, MemoryRepository>();
             services.AddSingleton<IThrottleService, ThrottleService>();
+
+            services.Configure<RabbitMqSettings>(Configuration.GetSection("RabbitMq"));
+            services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly());
             //add healthchecks
             services.AddHealthChecks();
         }

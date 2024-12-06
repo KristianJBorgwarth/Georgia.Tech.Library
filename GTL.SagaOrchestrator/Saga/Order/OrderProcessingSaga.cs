@@ -1,4 +1,6 @@
-﻿using GTL.Messaging.RabbitMq.Messages.OrderMessages;
+﻿using Azure;
+using GTL.Messaging.RabbitMq.Messages;
+using GTL.Messaging.RabbitMq.Messages.OrderMessages;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 
@@ -8,8 +10,10 @@ public class OrderProcessingSaga : MassTransitStateMachine<OrderProcessingSagaSt
 {
     public Event<ProcessOrderRequestMessage> ProcessOrderRequestMessageReceived { get; private set; }
     public Event<Fault<PaymentRequestMessage>> PaymentRequestFailed { get; private set; }
+    public Event<OperationSucceededMessage> PaymentRequestSucceeded { get; private set; }
 
     public State ProcessingOrderState { get; private set; }
+    public State Failed { get; private set; }
 
     public OrderProcessingSaga(ILogger<OrderProcessingSaga> logger)
     {
@@ -36,8 +40,20 @@ public class OrderProcessingSaga : MassTransitStateMachine<OrderProcessingSagaSt
 
         During(ProcessingOrderState,
             When(PaymentRequestFailed)
-                .ThenAsync(async context => { }));
+                .ThenAsync(async context =>
+                {
+                    // Tell order service to cancel order
+
+                }).TransitionTo(Failed),
+            When(PaymentRequestSucceeded)
+                .ThenAsync(async context =>
+                {
+                    // Tell Warehouse to decrease stock of books
+                }).
+                TransitionTo(Final)
+                .Finalize());
 
 
+        SetCompletedWhenFinalized();
     }
 }
