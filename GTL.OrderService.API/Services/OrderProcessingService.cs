@@ -17,7 +17,7 @@ public class OrderProcessingService : IOrderProcessingService
     }
     public Result ProcessOrder(OrderProcessingRequest request)
     {
-        Console.WriteLine("this is working");
+        var order = _orderRepository.GetByIdAsync(request.OrderId).Result;
         return Result.Ok();
     }
 }

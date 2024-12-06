@@ -21,24 +21,20 @@ namespace GTL.OrderService.Persistence.ModelConfigurations
 
             // Fremmednøgle: OrderId
             builder.Property(o => o.OrderId)
-                .IsRequired()
-                .HasColumnType("uniqueidentifier");
-
-            builder.HasOne<Order>() // Relation til Order
-                .WithMany() // Antag, at Order har mange OrderItems
-                .HasForeignKey(o => o.OrderId)
-                .OnDelete(DeleteBehavior.Restrict); // Ingen cascading delete
+                .IsRequired();
 
             // Fremmednøgle: BookId (hvis den er reference til en Book-klasse)
             builder.Property(o => o.BookId)
-                .IsRequired()
-                .HasColumnType("uniqueidentifier");
+                .IsRequired();
 
             // Bogtitel
             builder.Property(o => o.BookTitle)
                 .IsRequired()
-                .HasMaxLength(100) // Øger længdebegrænsning for titel
-                .HasColumnType("nvarchar");
+                .HasMaxLength(100); // Øger længdebegrænsning for titel
+
+            builder.HasOne<Order>()
+                .WithMany(o => o.OrderItems)
+                .HasForeignKey(oi => oi.OrderId);
 
             // Pris
             builder.Property(o => o.Price)
@@ -47,8 +43,7 @@ namespace GTL.OrderService.Persistence.ModelConfigurations
 
             // Antal
             builder.Property(o => o.Quantity)
-                .IsRequired()
-                .HasColumnType("int");
+                .IsRequired();
         }
     }
 }
