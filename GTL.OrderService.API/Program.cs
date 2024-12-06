@@ -1,6 +1,7 @@
 using System.Reflection;
 using GTL.Messaging.RabbitMq.Configuration;
 using GTL.Messaging.RabbitMq.Messages.OrderMessages;
+using GTL.OrderService.API.Services;
 using GTL.OrderService.Persistence.Configuration;
 using GTL.OrderService.Persistence.Repositories;
 using Serilog;
@@ -35,6 +36,8 @@ builder.Host.UseSerilog();
 
 builder.Services.AddOrderServicePersistence(configuration)
     .AddProducer<OrderProcessedMessage>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
 #endregion
 
@@ -45,11 +48,15 @@ builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly());
 
 #endregion
 
+#region Application Services
+
+builder.Services.AddScoped<IOrderProcessingService, OrderProcessingService>();
+
+#endregion
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
 
 var app = builder.Build();

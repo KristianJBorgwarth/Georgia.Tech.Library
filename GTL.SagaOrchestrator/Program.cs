@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using GTL.Messaging.RabbitMq.Configuration;
-using GTL.SagaOrchestrator.Abstractions;
 using GTL.SagaOrchestrator.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

@@ -5,6 +5,8 @@ using GTL.OrderService.Persistence.Features.Order.Request;
 using GTL.OrderService.Persistence.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
+using GTL.OrderService.API.Requests;
+using GTL.OrderService.API.Services;
 
 namespace GTL.OrderService.API.Controllers;
 
@@ -14,22 +16,25 @@ public class OrderController : ControllerBase
     public IProducer<OrderProcessedMessage> _producer;
     private readonly IOrderRepository _orderRepository;
     private readonly IOrderItemRepository _orderItemRepository;
+    private readonly IOrderProcessingService _orderProcessingService;
 
-    public OrderController(IProducer<OrderProcessedMessage> producer, IOrderRepository orderRepository, IOrderItemRepository orderItemRepository)
+    public OrderController(IProducer<OrderProcessedMessage> producer, IOrderRepository orderRepository, IOrderItemRepository orderItemRepository, IOrderProcessingService orderProcessingService)
     {
         _producer = producer;
         _orderRepository = orderRepository;
         _orderItemRepository = orderItemRepository;
+        _orderProcessingService = orderProcessingService;
     }
 
     [HttpPost]
     [Route("process-order")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> ProcessOrder()
+    public async Task<IActionResult> ProcessOrder([FromBody] OrderProcessingRequest request)
     {
-        await _producer.PublishMessageAsync(new OrderProcessedMessage(100, "thisworks", Guid.NewGuid()));
-        return Ok();
+        var result = _orderProcessingService.ProcessOrder(request);
+
+        return result.Success ? Ok() : BadRequest(result.Error);
     }
 
     #region CRUD
