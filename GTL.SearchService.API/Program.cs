@@ -36,6 +36,14 @@ builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly());
 
 #endregion
 
+builder.Services.AddStackExchangeRedisCache(redisOptions =>
+{
+    string connection = builder.Configuration.GetConnectionString("Redis");
+
+    redisOptions.Configuration = connection;
+}
+);
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -51,5 +59,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 Log.Information("Search API is starting...");
+
+app.MapControllers();
 
 app.Run();
