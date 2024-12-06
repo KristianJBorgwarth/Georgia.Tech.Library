@@ -4,6 +4,7 @@ using GTL.OrderService.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GTL.OrderService.Persistence.Migrations
 {
     [DbContext(typeof(OrderServiceDbContext))]
-    partial class OrderServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241203185322_NullableFKOrderITEm3")]
+    partial class NullableFKOrderITEm3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,6 +55,8 @@ namespace GTL.OrderService.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrderItemId");
 
                     b.ToTable("Order", (string)null);
                 });
@@ -98,6 +103,14 @@ namespace GTL.OrderService.Persistence.Migrations
                     b.HasIndex("OrderId1");
 
                     b.ToTable("OrderItem", (string)null);
+                });
+
+            modelBuilder.Entity("GTL.OrderService.Persistence.Entities.Order", b =>
+                {
+                    b.HasOne("GTL.OrderService.Persistence.Entities.OrderItem", null)
+                        .WithMany()
+                        .HasForeignKey("OrderItemId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("GTL.OrderService.Persistence.Entities.OrderItem", b =>
