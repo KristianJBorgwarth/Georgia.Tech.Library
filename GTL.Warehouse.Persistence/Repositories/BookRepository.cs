@@ -43,6 +43,16 @@ namespace GTL.Warehouse.Persistence.Repositories
             return await _dbContext.Books.ToListAsync();
         }
 
-       
+       public async Task DeleteBookWithUserIdAsync(Guid userId)
+        {
+            var booksToDelete = _dbContext.Books.Where(book => book.UserId == userId);
+            _dbContext.Books.RemoveRange(booksToDelete);
+            await _dbContext.SaveChangesAsync();
+        }
+        public async Task<List<Book?>> GetBooksByUserIdAsync(Guid userId)
+        {
+            var books = await _dbContext.Books.Where(book => book.UserId == userId).ToListAsync();
+            return books;
+        }
     }
 }

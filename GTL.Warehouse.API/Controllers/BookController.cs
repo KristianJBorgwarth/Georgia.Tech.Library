@@ -38,7 +38,7 @@ namespace GTL.Warehouse.API.Controllers
 
 
 
-        [HttpGet("{id}")]
+        [HttpGet("bookid/{id}")]
         public async Task<IActionResult> GetBookById(Guid id)
         {
            var book = await _repository.GetByIdAsync(id);
@@ -91,6 +91,18 @@ namespace GTL.Warehouse.API.Controllers
             }
             return Ok(books);
                     
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBookOfUser(Guid id)
+        {
+            await _repository.DeleteBookWithUserIdAsync(id);
+            return Ok();
+        }
+        [HttpGet("userId/{id}")]
+        public async Task<IActionResult> GetBooksByUserId(Guid userId)
+        {
+            var books = await _repository.GetBooksByUserIdAsync(userId);
+            return Ok(books);
         }
     }
 }

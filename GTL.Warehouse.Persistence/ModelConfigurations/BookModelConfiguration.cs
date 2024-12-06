@@ -19,6 +19,7 @@ namespace GTL.Warehouse.Persistence.ModelConfigurations
             builder.Property(b => b.Title).IsRequired();
             builder.Property(b => b.Quantity).IsRequired();
             builder.Property(b => b.Price).IsRequired();
+
         }
     }
 }

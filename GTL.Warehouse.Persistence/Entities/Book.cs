@@ -12,7 +12,7 @@ namespace GTL.Warehouse.Persistence.Entities.Book
         public required string Title { get; set; }
         public required int Quantity { get; set; }
         public required string Price { get; set; }
-        public string? UserId { get; set; }
+        public Guid UserId { get; set; }
 
         
     }
