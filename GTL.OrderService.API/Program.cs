@@ -34,10 +34,7 @@ builder.Host.UseSerilog();
 
 #region Persistence
 
-builder.Services.AddOrderServicePersistence(configuration)
-    .AddProducer<OrderProcessedMessage>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+builder.Services.AddOrderServicePersistence(configuration);
 
 #endregion
 
@@ -45,7 +42,7 @@ builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
 builder.Services.Configure<RabbitMqSettings>(configuration.GetSection("RabbitMq"));
 builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly())
-    .AddProducer<OrderProcessingRequestMessage>();
+    .AddProducer<ProcessOrderRequestMessage>();
 
 #endregion
 

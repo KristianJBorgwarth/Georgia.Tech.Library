@@ -19,4 +19,8 @@
       <ProjectReference Include="..\GTL.Messaging.RabbitMq\GTL.Messaging.RabbitMq.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Consumers\" />
+    </ItemGroup>
+
 </Project>

@@ -16,10 +16,10 @@ public interface IOrderProcessingService
 public class OrderProcessingService : IOrderProcessingService
 {
     private readonly IOrderRepository _orderRepository;
-    private readonly IProducer<OrderProcessingRequestMessage> _producer;
+    private readonly IProducer<ProcessOrderRequestMessage> _producer;
     private readonly ILogger<OrderProcessingService> _logger;
 
-    public OrderProcessingService(IOrderRepository orderRepository, IProducer<OrderProcessingRequestMessage> producer, ILogger<OrderProcessingService> logger)
+    public OrderProcessingService(IOrderRepository orderRepository, IProducer<ProcessOrderRequestMessage> producer, ILogger<OrderProcessingService> logger)
     {
         _orderRepository = orderRepository;
         _producer = producer;
@@ -42,7 +42,7 @@ public class OrderProcessingService : IOrderProcessingService
             var price = order.CalculateTotalPrice();
             var intPrice = Convert.ToInt32(price);
 
-            var message = new OrderProcessingRequestMessage(request.CustomerId,
+            var message = new ProcessOrderRequestMessage(request.CustomerId,
                 request.OrderId,
                 bookIds,
                 intPrice,

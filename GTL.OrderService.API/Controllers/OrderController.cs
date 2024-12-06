@@ -13,14 +13,12 @@ namespace GTL.OrderService.API.Controllers;
 [Route("api/[controller]")]
 public class OrderController : ControllerBase
 {
-    public IProducer<OrderProcessedMessage> _producer;
     private readonly IOrderRepository _orderRepository;
     private readonly IOrderItemRepository _orderItemRepository;
     private readonly IOrderProcessingService _orderProcessingService;
 
-    public OrderController(IProducer<OrderProcessedMessage> producer, IOrderRepository orderRepository, IOrderItemRepository orderItemRepository, IOrderProcessingService orderProcessingService)
+    public OrderController(IOrderRepository orderRepository, IOrderItemRepository orderItemRepository, IOrderProcessingService orderProcessingService)
     {
-        _producer = producer;
         _orderRepository = orderRepository;
         _orderItemRepository = orderItemRepository;
         _orderProcessingService = orderProcessingService;
