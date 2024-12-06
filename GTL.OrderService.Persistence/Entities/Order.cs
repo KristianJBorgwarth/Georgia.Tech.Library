@@ -39,14 +39,19 @@ public class Order : Entity
         _orderItems.RemoveAll(x => x.Id == orderItemId);
     }
 
+    public List<Guid> GetBookIds()
+    {
+        return _orderItems.Select(x => x.BookId).ToList();
+    }
+
     public decimal CalculateTotalPrice()
     {
-        decimal totalPrice = 0;
-        foreach (var orderItem in _orderItems)
-        {
-            totalPrice += orderItem.Price * orderItem.Quantity;
-        }
-        return totalPrice;
+        return _orderItems.Sum(orderItem => orderItem.Price);
+    }
+
+    public void SetOrderStatus(OrderStatus orderStatus)
+    {
+        OrderStatus = orderStatus;
     }
 
 }
