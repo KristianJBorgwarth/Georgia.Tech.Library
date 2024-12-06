@@ -32,7 +32,7 @@ public class OrderController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> ProcessOrder([FromBody] OrderProcessingRequest request)
     {
-        var result = _orderProcessingService.ProcessOrder(request);
+        var result = await _orderProcessingService.ProcessOrder(request);
 
         return result.Success ? Ok() : BadRequest(result.Error);
     }

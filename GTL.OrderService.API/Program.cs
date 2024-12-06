@@ -44,7 +44,8 @@ builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 #region MassTransit (Messaging)
 
 builder.Services.Configure<RabbitMqSettings>(configuration.GetSection("RabbitMq"));
-builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly());
+builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly())
+    .AddProducer<OrderProcessingRequestMessage>();
 
 #endregion
 

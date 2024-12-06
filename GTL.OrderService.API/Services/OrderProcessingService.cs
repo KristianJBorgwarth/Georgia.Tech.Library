@@ -1,23 +1,68 @@
 ﻿using GTL.Domain.Common;
+using GTL.Messaging.RabbitMq.Messages.OrderMessages;
+using GTL.Messaging.RabbitMq.Producer;
 using GTL.OrderService.API.Requests;
+using GTL.OrderService.Persistence.Entities;
 using GTL.OrderService.Persistence.Repositories;
+using MassTransit.RabbitMqTransport;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace GTL.OrderService.API.Services;
 
 public interface IOrderProcessingService
 {
-    Result ProcessOrder(OrderProcessingRequest request);
+    Task<Result> ProcessOrder(OrderProcessingRequest request);
 }
 public class OrderProcessingService : IOrderProcessingService
 {
     private readonly IOrderRepository _orderRepository;
-    public OrderProcessingService(IOrderRepository orderRepository)
+    private readonly IProducer<OrderProcessingRequestMessage> _producer;
+    private readonly ILogger<OrderProcessingService> _logger;
+
+    public OrderProcessingService(IOrderRepository orderRepository, IProducer<OrderProcessingRequestMessage> producer, ILogger<OrderProcessingService> logger)
     {
         _orderRepository = orderRepository;
+        _producer = producer;
+        _logger = logger;
     }
-    public Result ProcessOrder(OrderProcessingRequest request)
+    public async Task<Result> ProcessOrder(OrderProcessingRequest request)
     {
-        var order = _orderRepository.GetByIdAsync(request.OrderId).Result;
-        return Result.Ok();
+        try
+        {
+            var order = await _orderRepository.GetByIdAsync(request.OrderId);
+
+            if (order is null)
+            {
+                _logger.LogError("Order with id {OrderId} not found", request.OrderId);
+                return Result.Fail(Errors.General.NotFound(request.OrderId));
+            }
+
+            var bookIds = order.GetBookIds();
+
+            var price = order.CalculateTotalPrice();
+            var intPrice = Convert.ToInt32(price);
+
+            var message = new OrderProcessingRequestMessage(request.CustomerId,
+                request.OrderId,
+                bookIds,
+                intPrice,
+                request.CardNumber,
+                request.ExpirationDate,
+                request.CVC,
+                Guid.NewGuid());
+
+            order.SetOrderStatus(OrderStatus.Completed);
+
+            await _orderRepository.UpdateAsync(order);
+
+            await _producer.PublishMessageAsync(message);
+
+            return Result.Ok();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error processing order");
+            return Result.Fail(Errors.General.UnspecifiedError("Exception occured while processing order"));
+        }
     }
 }
