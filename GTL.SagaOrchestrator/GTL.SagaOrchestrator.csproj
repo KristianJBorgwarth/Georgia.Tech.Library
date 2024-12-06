@@ -9,6 +9,10 @@
 
     <ItemGroup>
       <PackageReference Include="MassTransit.EntityFrameworkCore" Version="8.3.3" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
         <PrivateAssets>all</PrivateAssets>
@@ -21,10 +25,6 @@
       <PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0" />
       <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.4" />
       <PackageReference Include="Serilog.Sinks.Seq" Version="8.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Persistence\ModelConfigurations\" />
     </ItemGroup>
 
     <ItemGroup>

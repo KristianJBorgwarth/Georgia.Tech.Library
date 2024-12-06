@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using GTL.Messaging.RabbitMq.Configuration;
 using GTL.SagaOrchestrator.Persistence.Context;
+using GTL.SagaOrchestrator.Saga.Order;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +34,8 @@ try
 
             services.AddDbContext<OrchestratorDbContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("GTL.SagaOrchestratorDbConnectionString")!, b => b.MigrationsAssembly(typeof(OrchestratorDbContext).Assembly.FullName));
+                options.UseSqlServer(configuration.GetConnectionString("GTL.SagaOrchestratorDbConnectionString")!,
+                    b => b.MigrationsAssembly(typeof(OrchestratorDbContext).Assembly.FullName));
             });
 
             #endregion
@@ -42,7 +45,12 @@ try
             services.Configure<RabbitMqSettings>(configuration.GetSection("RabbitMq"));
             services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly(), x =>
             {
-                //Add saga and state machine and configure with EntityFrameworkRepository
+                x.AddSagaStateMachine<OrderProcessingSaga, OrderProcessingSagaState>()
+                    .EntityFrameworkRepository(r =>
+                    {
+                        r.ExistingDbContext<OrchestratorDbContext>();
+                        r.UseSqlServer();
+                    });
             });
 
             #endregion

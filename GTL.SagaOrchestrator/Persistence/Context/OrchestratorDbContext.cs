@@ -1,4 +1,5 @@
-﻿using MassTransit.EntityFrameworkCoreIntegration;
+﻿using GTL.SagaOrchestrator.Persistence.ModelConfigurations;
+using MassTransit.EntityFrameworkCoreIntegration;
 using Microsoft.EntityFrameworkCore;
 
 namespace GTL.SagaOrchestrator.Persistence.Context;
@@ -7,6 +8,9 @@ public class OrchestratorDbContext(DbContextOptions options) : SagaDbContext(opt
 {
     protected override IEnumerable<ISagaClassMap> Configurations
     {
-        get; //yield return the saga map
+        get
+        {
+            yield return new OrderProcessingSagaMap();
+        }
     }
 }
