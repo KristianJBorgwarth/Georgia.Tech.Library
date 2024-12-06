@@ -45,6 +45,8 @@ public class OrderController : ControllerBase
         }
         var order = new Order(request.UserId, OrderStatus.Pending);
 
+        await _orderRepository.CreateAsync(order);
+
         return Ok();
     }
 

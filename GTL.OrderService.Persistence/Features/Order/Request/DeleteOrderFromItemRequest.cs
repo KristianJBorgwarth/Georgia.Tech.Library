@@ -9,5 +9,9 @@ namespace GTL.OrderService.Persistence.Features.Order.Request
     public class DeleteOrderFromItemRequest
     {
         public Guid Id { get; set; }
+
+        public Guid BookID { get; set; }
+
+        public decimal Quantity { get; set; }
     }
 }

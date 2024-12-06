@@ -18,16 +18,6 @@ public class OrderModelConfiguration : IEntityTypeConfiguration<Order>
             .IsRequired()
             .HasColumnType("uniqueidentifier");
 
-        // Fremmednøgle: OrderItemId
-        builder.Property(o => o.OrderItemId)
-            .IsRequired(false)
-            .HasColumnType("uniqueidentifier");
-
-        builder.HasOne<OrderItem>() // Antag, at der er en OrderItem-klasse
-            .WithMany() // Hvis OrderItem har mange Orders
-            .HasForeignKey(o => o.OrderItemId)
-            .OnDelete(DeleteBehavior.Restrict); // Juster sletningsadfærd
-
         builder.Property(o => o.OrderStatus)
             .IsRequired()
             .HasMaxLength(50)
