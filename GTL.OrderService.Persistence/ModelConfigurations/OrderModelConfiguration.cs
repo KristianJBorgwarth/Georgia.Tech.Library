@@ -9,9 +9,18 @@ public class OrderModelConfiguration : IEntityTypeConfiguration<Order>
     public void Configure(EntityTypeBuilder<Order> builder)
     {
         builder.ToTable("Order");
+
+        // Primær nøgle
         builder.HasKey(o => o.Id);
 
-        builder.Property(o => o.Quantity)
-            .IsRequired();
+        // Fremmednøgle: UserId
+        builder.Property(o => o.UserId)
+            .IsRequired()
+            .HasColumnType("uniqueidentifier");
+
+        builder.Property(o => o.OrderStatus)
+            .IsRequired()
+            .HasMaxLength(50)
+            .HasColumnType("nvarchar");
     }
 }

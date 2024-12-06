@@ -7,6 +7,7 @@ namespace GTL.OrderService.Persistence.Context;
 public class OrderServiceDbContext : DbContext
 {
     public DbSet<Order?> Orders { get; private set; }
+    public DbSet<OrderItem?> OrderItems { get; private set; }
 
     public OrderServiceDbContext(DbContextOptions<OrderServiceDbContext> options)
         : base(options)
@@ -16,6 +17,7 @@ public class OrderServiceDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new OrderModelConfiguration());
+        modelBuilder.ApplyConfiguration(new OrderItemModelConfiguration());
         base.OnModelCreating(modelBuilder);
     }
 }
