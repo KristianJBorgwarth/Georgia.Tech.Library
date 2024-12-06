@@ -90,3 +90,8 @@ build/
 *.PublishProfiles/
 *.azuredeploy.*
 !.gitignore
+
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+/.vs
