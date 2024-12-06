@@ -32,7 +32,7 @@ public class OrderRepository : IOrderRepository
 
     public async Task<Order?> GetByIdAsync(Guid id)
     {
-        return await _dbContext.Orders.FindAsync(id);
+       return await _dbContext.Orders.Include(x=> x.OrderItems).FirstOrDefaultAsync(x=> x.Id == id);
     }
 
     public async Task UpdateAsync(Order entity)

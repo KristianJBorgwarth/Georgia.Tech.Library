@@ -136,12 +136,11 @@ public class OrderController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DeleteItemFromOrder(DeleteOrderFromItemRequest request)
     {
-        if (request == null)
-        {
-            return BadRequest("User data is required.");
-        }
+        var order = await _orderRepository.GetByIdAsync(request.OrderItemId);
 
-        await _orderItemRepository.DeleteAsync(request.Id);
+        order.DeleteOrderItem(request.OrderItemId);
+
+        await _orderRepository.UpdateAsync(order);
 
         return Ok();
     }
