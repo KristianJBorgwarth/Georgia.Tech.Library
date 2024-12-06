@@ -1,5 +1,96 @@
+# Ignore Visual Studio temporary files, build results, and
+# user-specific files
+.vscode/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+*.ide.*
+*.suo
+*.ilk
+*.obj
+*.log
+*.tlb
+*.tlh
+*.cache
+*.pdb
+*.pch
+*.ipch
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.sqlite
+*.pri
+*.lce
+*.psess
+*.psesspcap
+*.coverage
+
+# ReSharper specific
+_ReSharper.Caches/
+*.resharper
+*.DotSettings.user
+resharper.xml
+resharper.ini
+
+# Visual Studio Code
+.history/
+**/.history/
+
+# Rider specific
+*.iml
+.idea/
+.idea_modules/
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/.idea_modules.xml
+.idea/usage.statistics.xml
+.idea/.classpath
+.idea/.project
+.idea/.idea_configurations.xml
+.idea/RunConfigurations/
+
+# Azure DevOps
+.local.settings.json
+storage_account.caches
+
+# Package Management
+/packages/
+*.nupkg
+*.nuspec
+.project.lock.json
+project.lock.json
+artifacts/
+
+# Auto-generated
 bin/
 obj/
+gen/
+wwwroot/
+build/
+!.gitignore
+
+# Rider cache
+.idea_modules
+
+# ASP.NET runtime
+*.db
+*.db-shm
+*.db-wal
+*/publish/
+
+# Deployments
+*.publish/
+
+# Publishing
+.publish
+*.PublishProfiles/
+*.azuredeploy.*
+!.gitignore
+
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
