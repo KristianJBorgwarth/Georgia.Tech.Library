@@ -16,13 +16,11 @@ namespace Webshop.Payment.Api.Consumer;
 public class PaymentRequestMessageConsumer : IConsumer<PaymentRequestMessage>
 {
     private readonly IMemoryRepository _transactionRepository;
-    private readonly IThrottleService _throttleService;
     private readonly ILogger<PaymentController> _logger;
     private readonly IProducer<OperationSucceededMessage> _producer;
     public PaymentRequestMessageConsumer(IMemoryRepository transactionRepository, IThrottleService throttleService, ILogger<PaymentController> logger, IProducer<OperationSucceededMessage> producer)
     {
         _transactionRepository = transactionRepository;
-        _throttleService = throttleService;
         _logger = logger;
         _producer = producer;
     }

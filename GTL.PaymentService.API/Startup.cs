@@ -1,5 +1,6 @@
 using System.Reflection;
 using GTL.Messaging.RabbitMq.Configuration;
+using GTL.Messaging.RabbitMq.Messages;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -46,7 +47,8 @@ namespace Webshop.Payment.Api
             services.AddSingleton<IThrottleService, ThrottleService>();
 
             services.Configure<RabbitMqSettings>(Configuration.GetSection("RabbitMq"));
-            services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly());
+            services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly())
+                .AddProducer<OperationSucceededMessage>();
             //add healthchecks
             services.AddHealthChecks();
         }
