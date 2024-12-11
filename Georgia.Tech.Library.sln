@@ -1,5 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTL.Warehouse.API", "GTL.Warehouse.API\GTL.Warehouse.API.csproj", "{A7A3B76D-E686-4BDB-8237-17E6A4F8FCFD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}"
@@ -22,9 +25,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTL.PaymentService.API", "G
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{DCE4DD56-D572-4A03-91D3-284D6CCE4639}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		gtl-docker-compose.yml = gtl-docker-compose.yml
-		.gitignore = .gitignore
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTL.OrderService.Persistence", "GTL.OrderService.Persistence\GTL.OrderService.Persistence.csproj", "{3F340781-0EE2-4E87-854A-BFC8FE797440}"
@@ -44,6 +47,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTL.Customer.Application", "GTL.Customer.Application\GTL.Customer.Application.csproj", "{61E41854-2EDC-4A30-BF32-8DF0BE8D974E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTL.Customer.Persistence", "GTL.Customer.Persistence\GTL.Customer.Persistence.csproj", "{078A6803-86AA-46F6-BE51-E875E24DC26A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIGateway", "APIGateway", "{AA3AA90C-CB54-4796-9057-15E353982A47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Gateway", "Webshop.Gateway\Webshop.Gateway.csproj", "{9D152386-340B-42EA-9F2A-AD3FDA9A137E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,10 +106,17 @@ Global
 		{078A6803-86AA-46F6-BE51-E875E24DC26A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{078A6803-86AA-46F6-BE51-E875E24DC26A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{078A6803-86AA-46F6-BE51-E875E24DC26A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D152386-340B-42EA-9F2A-AD3FDA9A137E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D152386-340B-42EA-9F2A-AD3FDA9A137E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D152386-340B-42EA-9F2A-AD3FDA9A137E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D152386-340B-42EA-9F2A-AD3FDA9A137E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{48A5ED18-D4A0-40C7-AE1D-F61E71F51178} = {35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}
 		{A7A3B76D-E686-4BDB-8237-17E6A4F8FCFD} = {48A5ED18-D4A0-40C7-AE1D-F61E71F51178}
+		{48A5ED18-D4A0-40C7-AE1D-F61E71F51178} = {35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}
 		{50C94487-9C7C-4621-8C86-06201D28E793} = {35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}
 		{44C0B476-81D9-4ADA-86E7-79257E94C1B2} = {35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}
 		{C744E93A-9658-4135-8B68-7F995E61C256} = {44C0B476-81D9-4ADA-86E7-79257E94C1B2}
@@ -119,5 +133,7 @@ Global
 		{EBEF1B38-491E-4DDF-B08C-D2731FFEE7B9} = {E87E56A2-CC84-4FF3-9171-228D0848AB51}
 		{61E41854-2EDC-4A30-BF32-8DF0BE8D974E} = {B4AD00B1-9877-4B5B-B9A1-FA3B1A38C1BF}
 		{078A6803-86AA-46F6-BE51-E875E24DC26A} = {B4AD00B1-9877-4B5B-B9A1-FA3B1A38C1BF}
+		{AA3AA90C-CB54-4796-9057-15E353982A47} = {35E7ADE3-3F26-4D33-A3D1-B4405060B3E8}
+		{9D152386-340B-42EA-9F2A-AD3FDA9A137E} = {AA3AA90C-CB54-4796-9057-15E353982A47}
 	EndGlobalSection
 EndGlobal
