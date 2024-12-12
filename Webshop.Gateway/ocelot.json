@@ -1,0 +1,39 @@
+{
+  //To sektioner definerer ocelot filen: Et array af Routes og GlobalConfigurations
+  //GlobalConfigurations muliggør at man kan overskrive Routes.
+  //Routes defineres ved Upstream og Downstream, hvor upstream er det indkomne request (fra webklienten) og downstream er det request der videreformidles (til API servicen).
+  "Routes": [
+    //SEARCH    
+    {
+      //Routing details for search GET:
+      "UpstreamPathTemplate": "/api/search/{searchPhrase}",
+      "UpstreamHttpMethod": [ "GET" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "https://localhost:7031/", //"SearchService", //Defineret i Docker image -- Ikke defineret endnu??
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/search/{searchPhrase}"
+    },
+    {
+      //Routing details for search DELETE:
+      "UpstreamPathTemplate": "/api/search/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "https://localhost:7031/", //"SearchService", //Defineret i Docker image -- Ikke defineret endnu??
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/search/{id}"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:800"
+  }
+}
