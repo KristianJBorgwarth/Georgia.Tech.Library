@@ -25,9 +25,7 @@ namespace GTL.Warehouse.Persistence.ModelConfigurations
                 .HasMaxLength(50); // Example constraint, like a currency format
 
             builder.HasOne(b => b.BookDetails)
-                .WithOne(bd => bd.Book)
-                .HasForeignKey<BookDetails>(bd => bd.BookId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .WithMany(bd => bd.Book);
 
         }
     }

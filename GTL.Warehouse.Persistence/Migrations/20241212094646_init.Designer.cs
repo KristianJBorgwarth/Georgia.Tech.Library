@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GTL.Warehouse.Persistence.Migrations
 {
     [DbContext(typeof(WarehouseDbContext))]
-    [Migration("20241206140847_ReAddBookTable")]
-    partial class ReAddBookTable
+    [Migration("20241212094646_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,9 @@ namespace GTL.Warehouse.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("BookDetailsId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Price")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -46,7 +49,7 @@ namespace GTL.Warehouse.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SellerId");
+                    b.HasIndex("BookDetailsId");
 
                     b.ToTable("Book", (string)null);
                 });
@@ -55,9 +58,6 @@ namespace GTL.Warehouse.Persistence.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ISBN")
@@ -75,64 +75,23 @@ namespace GTL.Warehouse.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId")
-                        .IsUnique();
-
                     b.ToTable("BookDetails", (string)null);
-                });
-
-            modelBuilder.Entity("GTL.Warehouse.Persistence.Entities.Seller", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Seller", (string)null);
                 });
 
             modelBuilder.Entity("GTL.Warehouse.Persistence.Entities.Book", b =>
                 {
-                    b.HasOne("GTL.Warehouse.Persistence.Entities.Seller", "Seller")
-                        .WithMany("Books")
-                        .HasForeignKey("SellerId")
+                    b.HasOne("GTL.Warehouse.Persistence.Entities.BookDetails", "BookDetails")
+                        .WithMany("Book")
+                        .HasForeignKey("BookDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Seller");
+                    b.Navigation("BookDetails");
                 });
 
             modelBuilder.Entity("GTL.Warehouse.Persistence.Entities.BookDetails", b =>
                 {
-                    b.HasOne("GTL.Warehouse.Persistence.Entities.Book", "Book")
-                        .WithOne("BookDetails")
-                        .HasForeignKey("GTL.Warehouse.Persistence.Entities.BookDetails", "BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("GTL.Warehouse.Persistence.Entities.Book", b =>
-                {
-                    b.Navigation("BookDetails")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GTL.Warehouse.Persistence.Entities.Seller", b =>
-                {
-                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }

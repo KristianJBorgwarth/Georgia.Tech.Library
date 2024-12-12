@@ -15,8 +15,7 @@ namespace GTL.Warehouse.Persistence.Entities
         public required DateTime PublishedDate { get; set; }
 
         // Foreign key and navigation property
-        public Guid BookId { get; set; }
-
-        public Book Book { get; set; } = null!;
+        public List<Book> Book { get; set; } = null!;
+        
     }
 }

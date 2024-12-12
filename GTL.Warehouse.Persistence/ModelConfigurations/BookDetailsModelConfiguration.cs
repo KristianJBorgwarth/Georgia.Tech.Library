@@ -26,6 +26,8 @@ namespace GTL.Warehouse.Persistence.ModelConfigurations
 
             builder.Property(bd => bd.PublishedDate)
                 .IsRequired();
+         
+
         }
     }
 }

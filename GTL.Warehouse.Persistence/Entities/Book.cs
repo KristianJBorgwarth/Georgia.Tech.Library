@@ -17,5 +17,6 @@ namespace GTL.Warehouse.Persistence.Entities
         public required Guid BookDetailsId { get; set; }
         public required Guid SellerId { get; set; }
       
+        public BookDetails BookDetails { get; set; }
     }
 }

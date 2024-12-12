@@ -9,7 +9,6 @@ namespace GTL.Warehouse.Persistence.Context
 
     public class WarehouseDbContext : DbContext
     {
-        public DbSet<Seller> Sellers { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<BookDetails> BookDetails { get; set; }
 
@@ -20,7 +19,6 @@ namespace GTL.Warehouse.Persistence.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new BookModelConfiguration());
-            modelBuilder.ApplyConfiguration(new SellerModelConfiguration());
             modelBuilder.ApplyConfiguration(new BookDetailsModelConfiguration());
             base.OnModelCreating(modelBuilder);
         }

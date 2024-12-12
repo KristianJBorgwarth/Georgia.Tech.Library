@@ -49,7 +49,6 @@ namespace GTL.Warehouse.Persistence.Repositories
         public async Task<Book?> GetBookByBookIdAsync(Guid bookId)
         {
             return await _dbContext.Books
-                .Include(b => b.Seller)
                 .Include(b => b.BookDetails)
                 .FirstOrDefaultAsync(b =>b.Id == bookId);
         }
@@ -59,7 +58,6 @@ namespace GTL.Warehouse.Persistence.Repositories
         public async Task<List<Book?>> GetBookByTitleAsync(string title)
         {
             return await _dbContext.Books
-          .Include(b => b.Seller) // Include Seller details
           .Include(b => b.BookDetails) // Include BookDetails
           .Where(b => EF.Functions.Like(b.Title, $"%{title}%"))
           .ToListAsync();
