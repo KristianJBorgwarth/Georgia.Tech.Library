@@ -39,4 +39,8 @@
       <ProjectReference Include="..\GTL.Warehouse.Persistence\GTL.Warehouse.Persistence.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Consumers\" />
+    </ItemGroup>
+
 </Project>
