@@ -56,7 +56,7 @@ builder.Services.AddCustomerApplication(Assembly.Load("GTL.Customer.Application"
 
 #region Persistence
 
-builder.Services.AddPersistence(configuration);
+builder.Services.AddPersistence(configuration, Assembly.GetExecutingAssembly());
 
 #endregion
 

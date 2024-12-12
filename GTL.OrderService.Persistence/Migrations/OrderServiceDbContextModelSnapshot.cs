@@ -34,13 +34,9 @@ namespace GTL.OrderService.Persistence.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("OrderItemId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("OrderStatus")
-                        .IsRequired()
+                    b.Property<int>("OrderStatus")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar");
+                        .HasColumnType("int");
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
@@ -68,7 +64,7 @@ namespace GTL.OrderService.Persistence.Migrations
                     b.Property<string>("BookTitle")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -77,9 +73,6 @@ namespace GTL.OrderService.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("OrderId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Price")
@@ -95,22 +88,16 @@ namespace GTL.OrderService.Persistence.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("OrderId1");
-
                     b.ToTable("OrderItem", (string)null);
                 });
 
             modelBuilder.Entity("GTL.OrderService.Persistence.Entities.OrderItem", b =>
                 {
                     b.HasOne("GTL.OrderService.Persistence.Entities.Order", null)
-                        .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("GTL.OrderService.Persistence.Entities.Order", null)
                         .WithMany("OrderItems")
-                        .HasForeignKey("OrderId1");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GTL.OrderService.Persistence.Entities.Order", b =>
