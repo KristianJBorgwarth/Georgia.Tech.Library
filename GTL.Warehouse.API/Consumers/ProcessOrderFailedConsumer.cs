@@ -20,7 +20,7 @@ public class ProcessOrderFailedConsumer : IConsumer<ProcessOrderFailedMessage>
             var book = await _context.Books.FindAsync(message.BookIds[i]);
             if (book != null)
             {
-                book.Quantity += message.Quantities[i]; // Restore stock
+                //book.Quantity += message.Quantities[i]; // Restore stock
             }
         }
 

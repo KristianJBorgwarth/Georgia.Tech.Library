@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using GTL.Warehouse.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using GTL.Warehouse.Persistence.Entities.Book;
+using GTL.Warehouse.Persistence.Entities;
 using MassTransit;
 using GTL.Messaging.RabbitMq.Producer;
 using GTL.Warehouse.API.Messages.BookCreatedMessage;
 using GTL.Warehouse.Persistence.Repositories;
+using System.Text.Json.Serialization;
 
 
 namespace GTL.Warehouse.API.Controllers
@@ -16,12 +17,12 @@ namespace GTL.Warehouse.API.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        private readonly IProducer<BookCreatedMessage> _producer;
+        //private readonly IProducer<BookCreatedMessage> _producer;
         private readonly IBookRepository _repository;
 
-        public BookController(IProducer<BookCreatedMessage> producer, IBookRepository repository)
+        public BookController(/*IProducer<BookCreatedMessage> producer,*/ IBookRepository repository)
         {
-            _producer = producer;
+           // _producer = producer;
             _repository = repository;
         }
 
@@ -41,7 +42,7 @@ namespace GTL.Warehouse.API.Controllers
         [HttpGet("bookid/{id}")]
         public async Task<IActionResult> GetBookById(Guid id)
         {
-           var book = await _repository.GetByIdAsync(id);
+           var book = await _repository.GetBooksByUserIdAsync(id);
             if (book == null)
             {
                 return NotFound(new { Message = $"Book with ID {id} not found." });
@@ -49,28 +50,29 @@ namespace GTL.Warehouse.API.Controllers
             return Ok(book);
         }
 
+
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateBook([FromBody] Book newBook)
-        {
+        { 
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             newBook.Id = Guid.NewGuid();
             await _repository.AddAsync(newBook);
 
-            var corelationId = Guid.NewGuid();
+           /* var corelationId = Guid.NewGuid();
 
             var message = new BookCreatedMessage(
                 newBook.Title,
-                newBook.Quantity,
                 newBook.Price,
                 corelationId);
 
-            await _producer.PublishMessageAsync(message);
+            await _producer.PublishMessageAsync(message); */
 
             return CreatedAtAction(nameof(GetBookById), new { id = newBook.Id }, newBook);
         }

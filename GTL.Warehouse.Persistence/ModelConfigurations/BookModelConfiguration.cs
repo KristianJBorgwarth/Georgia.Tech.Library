@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using GTL.Warehouse.Persistence.Entities.Book;
+using GTL.Warehouse.Persistence.Entities;
 
 namespace GTL.Warehouse.Persistence.ModelConfigurations
 {
@@ -16,9 +16,18 @@ namespace GTL.Warehouse.Persistence.ModelConfigurations
             builder.ToTable("Book");
             builder.HasKey(b => b.Id);
 
-            builder.Property(b => b.Title).IsRequired();
-            builder.Property(b => b.Quantity).IsRequired();
-            builder.Property(b => b.Price).IsRequired();
+            builder.Property(b => b.Title)
+                .IsRequired()
+                .HasMaxLength(200); // Example constraint
+
+            builder.Property(b => b.Price)
+                .IsRequired()
+                .HasMaxLength(50); // Example constraint, like a currency format
+
+            builder.HasOne(b => b.BookDetails)
+                .WithOne(bd => bd.Book)
+                .HasForeignKey<BookDetails>(bd => bd.BookId)
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
     }
