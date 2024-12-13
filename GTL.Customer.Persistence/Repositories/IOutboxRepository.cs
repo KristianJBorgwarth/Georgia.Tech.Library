@@ -1,22 +1,25 @@
-﻿using GTL.Customer.Persistence.Outboxing;
+﻿using GTL.Customer.Persistence.Context;
+using GTL.Customer.Persistence.Outboxing;
+using Microsoft.EntityFrameworkCore;
 
 namespace GTL.Customer.Persistence.Repositories;
 
-public interface IOutboxRepository
+internal interface IOutboxRepository
 {
     Task<OutboxMessage[]> GetUnprocessedAsync(int batchSize);
     Task MarkAsProcessedAsync(OutboxMessage message);
 }
 
-public class OutboxRepository : IOutboxRepository
+sealed internal class OutboxRepository(CustomerServiceDbContext context) : IOutboxRepository
 {
-    public Task<OutboxMessage[]> GetUnprocessedAsync(int batchSize)
+    public async Task<OutboxMessage[]> GetUnprocessedAsync(int batchSize)
     {
-        throw new NotImplementedException();
+        return await context.OutboxMessages.Where(x=> x.ProcessedOn == null).Take(batchSize).ToArrayAsync();
     }
 
     public Task MarkAsProcessedAsync(OutboxMessage message)
     {
-        throw new NotImplementedException();
+        message.MarkAsProcessed();
+        return Task.CompletedTask;
     }
 }

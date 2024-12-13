@@ -1,4 +1,5 @@
 ﻿using GTL.OrderService.Persistence.Context;
+using GTL.OrderService.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,9 @@ public static class OrderServicePersistenceConfiguration
         {
             options.UseSqlServer(connectionSting);
         });
+
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
         return services;
     }

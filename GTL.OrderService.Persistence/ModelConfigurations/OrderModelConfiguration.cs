@@ -15,12 +15,15 @@ public class OrderModelConfiguration : IEntityTypeConfiguration<Order>
 
         // Fremmednøgle: UserId
         builder.Property(o => o.UserId)
-            .IsRequired()
-            .HasColumnType("uniqueidentifier");
+            .IsRequired();
 
         builder.Property(o => o.OrderStatus)
             .IsRequired()
-            .HasMaxLength(50)
-            .HasColumnType("nvarchar");
+            .HasMaxLength(50);
+
+        builder.HasMany<OrderItem>()
+            .WithOne()
+            .HasForeignKey(oi => oi.OrderId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

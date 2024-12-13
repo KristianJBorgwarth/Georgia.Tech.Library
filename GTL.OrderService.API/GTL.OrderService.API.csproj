@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\GTL.Domain\GTL.Domain.csproj" />
       <ProjectReference Include="..\GTL.Messaging.RabbitMq\GTL.Messaging.RabbitMq.csproj" />
       <ProjectReference Include="..\GTL.OrderService.Persistence\GTL.OrderService.Persistence.csproj" />
     </ItemGroup>
