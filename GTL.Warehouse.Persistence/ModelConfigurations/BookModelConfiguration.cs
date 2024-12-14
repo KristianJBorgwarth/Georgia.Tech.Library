@@ -24,8 +24,8 @@ namespace GTL.Warehouse.Persistence.ModelConfigurations
                 .IsRequired()
                 .HasMaxLength(50); // Example constraint, like a currency format
 
-            builder.HasOne(b => b.BookDetails)
-                .WithMany(bd => bd.Book);
+           // builder.HasOne(b => b.BookDetails)
+             //   .WithMany(bd => bd.Book);
 
         }
     }

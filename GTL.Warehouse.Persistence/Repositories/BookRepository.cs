@@ -27,14 +27,10 @@ namespace GTL.Warehouse.Persistence.Repositories
                 throw new ArgumentNullException(nameof(book));
 
             // Ensure the required relationships are satisfied
-           /* if (book.SellerId == Guid.Empty)
+            if (book.SellerId == Guid.Empty)
                 throw new InvalidOperationException("Book must be associated with a valid seller.");
 
-            // Optional: Ensure related `BookDetails` is initialized
-            if (book.BookDetails == null)
-            {
-                throw new InvalidOperationException("BookDetails must be provided.");
-            }*/
+          
 
             // Add the book to the context
             await _dbContext.Books.AddAsync(book);
@@ -49,7 +45,7 @@ namespace GTL.Warehouse.Persistence.Repositories
         public async Task<Book?> GetBookByBookIdAsync(Guid bookId)
         {
             return await _dbContext.Books
-                .Include(b => b.BookDetails)
+                .Include(book => book.BookDetails)
                 .FirstOrDefaultAsync(b =>b.Id == bookId);
         }
 
@@ -66,7 +62,9 @@ namespace GTL.Warehouse.Persistence.Repositories
 
         public async Task<List<Book?>> GetAllBooks()
         {
-            return await _dbContext.Books.ToListAsync();
+            return await _dbContext.Books
+                .Include(b => b.BookDetails)
+                .ToListAsync();
         }
 
 
@@ -85,8 +83,16 @@ namespace GTL.Warehouse.Persistence.Repositories
 
         public async Task<List<Book?>> GetBooksByUserIdAsync(Guid userId)
         {
-            var books = await _dbContext.Books.Where(book => book.SellerId == userId).ToListAsync();
+            var books = await _dbContext.Books
+                .Where(book => book.SellerId == userId)
+                .Include(b => b.BookDetails)
+                .ToListAsync();
             return books;
+        }
+        public async Task<BookDetails?> GetBookDetailsByIdAsync(Guid bookDetailsId)
+        {
+            var bookDetail = await _dbContext.BookDetails.FirstOrDefaultAsync(bd => bd.Id == bookDetailsId);
+            return bookDetail;
         }
     }
 }
