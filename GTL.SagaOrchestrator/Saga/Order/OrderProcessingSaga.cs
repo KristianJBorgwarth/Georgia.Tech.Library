@@ -42,13 +42,12 @@ public class OrderProcessingSaga : MassTransitStateMachine<OrderProcessingSagaSt
             When(PaymentRequestFailed)
                 .ThenAsync(async context =>
                 {
-                    // Tell order service to cancel order
-
+                    await context.Publish(new RollbackOrderProcessStatus(context.Saga.OrderId, context.Saga.CorrelationId, context.Message.FaultId));
                 }).TransitionTo(Failed),
             When(PaymentRequestSucceeded)
                 .ThenAsync(async context =>
                 {
-                    // Tell Warehouse to decrease stock of books
+                    await context.Publish(new OrderProcessSuccessfulMessage(context.Saga.CorrelationId, context.Message.Id, context.Saga.BookIds));
                 }).
                 TransitionTo(Final)
                 .Finalize());
