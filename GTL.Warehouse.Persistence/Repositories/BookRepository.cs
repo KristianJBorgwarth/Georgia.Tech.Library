@@ -88,5 +88,9 @@ namespace GTL.Warehouse.Persistence.Repositories
             var books = await _dbContext.Books.Where(book => book.SellerId == userId).ToListAsync();
             return books;
         }
+        public void DeleteBooksByIdsAsync(List<Guid> ids)
+        {
+            _dbContext.RemoveRange(_dbContext.Books.Where(book => ids.Contains(book.Id)));
+        }
     }
 }
