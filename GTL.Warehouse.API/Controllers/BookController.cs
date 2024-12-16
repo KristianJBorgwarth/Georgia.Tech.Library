@@ -43,7 +43,7 @@ namespace GTL.Warehouse.API.Controllers
         [HttpGet("bookid/{id}")]
         public async Task<IActionResult> GetBookById(Guid id)
         {
-           var book = await _repository.GetBookByBookIdAsync(id);
+            var book = await _repository.GetBookByBookIdAsync(id);
             if (book == null)
             {
                 return NotFound(new { Message = $"Book with ID {id} not found." });
@@ -57,13 +57,13 @@ namespace GTL.Warehouse.API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateBook([FromBody] CreateBookDTO newBookDTO)
-        { 
+        {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            // TODO: BookDetails skal laves på forhånd, hentes og kobles på bog her
-            // Modtager besked om salg, sletter bogen i databasen, tæller atallet og sender videre
+
+
 
             var existingBookDetails = await _repository.GetBookDetailsByIdAsync(newBookDTO.BookDetailsId);
             if (existingBookDetails == null)
@@ -78,7 +78,7 @@ namespace GTL.Warehouse.API.Controllers
                 Price = newBookDTO.Price,
                 SellerId = newBookDTO.SellerId,
                 BookDetailsId = newBookDTO.BookDetailsId
-                
+
             };
 
             await _repository.AddAsync(newBook);
@@ -111,6 +111,25 @@ namespace GTL.Warehouse.API.Controllers
             }
             return Ok(books);
         }
+
+        [HttpGet("BookAmountByTitleAndBookDetails")]
+        public async Task<IActionResult> GetBookCountByTitleAndBookDetailsId(string title, Guid bookDetailsId)
+        {
+            if (string.IsNullOrEmpty(title)) { throw new ArgumentNullException(nameof(title)); }
+
+            var bookAmount = await _repository.GetBookCountByIdAndTitleAsync(title, bookDetailsId);
+            if (bookAmount == null)
+            {
+                return NotFound(new
+                {
+                    Message = $"No books found with the title contatining '{title}' and id '{bookDetailsId}'"
+                });
+            }
+
+            return Ok(bookAmount);
+        }
+
+
 
 
 

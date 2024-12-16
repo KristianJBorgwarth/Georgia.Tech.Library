@@ -16,5 +16,7 @@ namespace GTL.Warehouse.Persistence.Repositories
         Task DeleteBookWithUserIdAsync(Guid userID);
         Task<List<Book?>> GetBooksByUserIdAsync(Guid id);
         Task<BookDetails?> GetBookDetailsByIdAsync(Guid bookDetailsId);
+        Task DeleteBookWithBookIdAsync(Guid bookId);
+        Task<int> GetBookCountByIdAndTitleAsync(string title, Guid bookId);
     }
 }

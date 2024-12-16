@@ -41,7 +41,6 @@ namespace GTL.Warehouse.Persistence.Repositories
 
 
 
-
         public async Task<Book?> GetBookByBookIdAsync(Guid bookId)
         {
             return await _dbContext.Books
@@ -68,11 +67,21 @@ namespace GTL.Warehouse.Persistence.Repositories
         }
 
 
-
        public async Task DeleteBookWithUserIdAsync(Guid userId)
         {
             var booksToDelete = await _dbContext.Books.Where(book => book.SellerId == userId).ToListAsync();
 
+            if (booksToDelete.Any())
+            {
+                _dbContext.RemoveRange(booksToDelete);
+                await _dbContext.SaveChangesAsync();
+            }
+        }
+
+
+        public async Task DeleteBookWithBookIdAsync(Guid bookId)
+        {
+            var booksToDelete = await _dbContext.Books.Where(b => b.Id == bookId).ToListAsync();
             if (booksToDelete.Any())
             {
                 _dbContext.RemoveRange(booksToDelete);
@@ -89,10 +98,21 @@ namespace GTL.Warehouse.Persistence.Repositories
                 .ToListAsync();
             return books;
         }
+
+
+
         public async Task<BookDetails?> GetBookDetailsByIdAsync(Guid bookDetailsId)
         {
             var bookDetail = await _dbContext.BookDetails.FirstOrDefaultAsync(bd => bd.Id == bookDetailsId);
             return bookDetail;
+        }
+
+
+        public async Task<int> GetBookCountByIdAndTitleAsync(string title, Guid bookDetailsId)
+        {
+            return await _dbContext.Books
+                .Where(b => b.Title == title && b.BookDetailsId == bookDetailsId)
+                .CountAsync();
         }
     }
 }

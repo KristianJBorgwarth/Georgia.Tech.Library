@@ -21,6 +21,31 @@ public class OrderProcessSuccessfulMessageConsumer : IConsumer<OrderProcessSucce
 
     public async Task Consume(ConsumeContext<OrderProcessSuccessfulMessage> context)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var booksToDelete = context.Message.BookIds.ToList();
+            foreach (var bookId in booksToDelete)
+            {
+                
+                var book = await _repository.GetBookByBookIdAsync(bookId);
+
+                await _repository.DeleteBookWithBookIdAsync(bookId);
+
+                var amount = await _repository.GetBookCountByIdAndTitleAsync(book.Title, book.BookDetailsId);
+
+                var message = new BookQuantityChangedMessage(
+                 bookId,
+                 amount,
+                 context.Message.CorrelationId
+                 );
+              
+                    await _producer.PublishMessageAsync(message);              
+           }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "En error occured while processing the OrderProcessSuccesfulMessage");
+            throw;
+        }
     }
 }

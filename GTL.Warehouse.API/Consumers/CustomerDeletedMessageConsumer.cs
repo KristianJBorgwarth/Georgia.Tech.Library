@@ -22,7 +22,7 @@ namespace Georgia.Tech.Library.Consumers
         public async Task Consume(ConsumeContext<CustomerDeletedMessage> context)
         {
 
-            
+
             /*var message = context.Message;
 
             var booksToDelete = await _repository.GetBooksByUserIdAsync(message.Id);
@@ -41,7 +41,7 @@ namespace Georgia.Tech.Library.Consumers
             }
 
             await _repository.DeleteBookWithUserIdAsync(message.Id);
-            // TODO: finish up method */
+           
         }
 
        
@@ -56,5 +56,6 @@ namespace Georgia.Tech.Library.Consumers
          }
          // TODO: make consumer
      } */
+        }
     }
 }
