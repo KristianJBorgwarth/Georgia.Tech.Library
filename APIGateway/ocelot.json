@@ -1,12 +1,5 @@
 {
-  //To sektioner definerer ocelot filen: 
-  //Et array af Routes og GlobalConfigurations
-  // 
-  //Routes defineres ved Upstream og Downstream, 
-  //hvor upstream er det indkomne request (fra webklienten) 
-  //og downstream er det request der videreformidles (til API servicen).
   "Routes": [
-    //SEARCH    
     {
       "UpstreamPathTemplate": "/api/search/{searchPhrase}",
       "UpstreamHttpMethod": [ "GET" ],

@@ -26,7 +26,7 @@ public class OrderProcessSuccessfulMessageConsumer : IConsumer<OrderProcessSucce
             var booksToDelete = context.Message.BookIds.ToList();
             foreach (var bookId in booksToDelete)
             {
-                
+
                 var book = await _repository.GetBookByBookIdAsync(bookId);
 
                 await _repository.DeleteBookWithBookIdAsync(bookId);
@@ -38,9 +38,9 @@ public class OrderProcessSuccessfulMessageConsumer : IConsumer<OrderProcessSucce
                  amount,
                  context.Message.CorrelationId
                  );
-              
-                    await _producer.PublishMessageAsync(message);              
-           }
+
+                    await _producer.PublishMessageAsync(message);
+            }
         }
         catch (Exception ex)
         {

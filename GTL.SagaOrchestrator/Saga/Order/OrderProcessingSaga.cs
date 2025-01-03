@@ -11,7 +11,6 @@ public class OrderProcessingSaga : MassTransitStateMachine<OrderProcessingSagaSt
     public Event<ProcessOrderRequestMessage> ProcessOrderRequestMessageReceived { get; private set; }
     public Event<Fault<PaymentRequestMessage>> PaymentRequestFailed { get; private set; }
     public Event<OperationSucceededMessage> PaymentRequestSucceeded { get; private set; }
-
     public State ProcessingOrderState { get; private set; }
     public State Failed { get; private set; }
 
@@ -20,6 +19,7 @@ public class OrderProcessingSaga : MassTransitStateMachine<OrderProcessingSagaSt
         InstanceState(x => x.CurrentState);
 
         Event(() => ProcessOrderRequestMessageReceived, x => x.CorrelateById(m => m.Message.CorrelationId));
+        Event(()=> PaymentRequestSucceeded , x => x.CorrelateById(m => m.Message.CorrelationId));
 
         Initially(
             When(ProcessOrderRequestMessageReceived)
