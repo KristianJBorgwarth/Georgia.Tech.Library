@@ -1,0 +1,99 @@
+{
+  //To sektioner definerer ocelot filen: 
+  //Et array af Routes og GlobalConfigurations
+  // 
+  //Routes defineres ved Upstream og Downstream, 
+  //hvor upstream er det indkomne request (fra webklienten) 
+  //og downstream er det request der videreformidles (til API servicen).
+  "Routes": [
+    //SEARCH    
+    {
+      "UpstreamPathTemplate": "/api/search/{searchPhrase}",
+      "UpstreamHttpMethod": [ "GET" ],
+
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7031
+        }
+      ],
+      "DownstreamPathTemplate": "/api/search/{searchPhrase}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/order/process-order",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7179
+        }
+      ],
+      "DownstreamPathTemplate": "/api/order/process-order"
+    },
+    {
+      "UpstreamPathTemplate": "/api/order/create-order",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7179
+        }
+      ],
+      "DownstreamPathTemplate": "/api/order/create-order"
+    },
+    {
+      "UpstreamPathTemplate": "/api/order/get-order/{id}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7179
+        }
+      ],
+      "DownstreamPathTemplate": "/api/order/get-order/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/order/getall-order",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7179
+        }
+      ],
+      "DownstreamPathTemplate": "/api/order/getall-order"
+    },
+    {
+      "UpstreamPathTemplate": "/api/order/update-order",
+      "UpstreamHttpMethod": [ "PUT" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7179
+        }
+      ],
+      "DownstreamPathTemplate": "/api/order/update-order"
+    },
+    {
+      "UpstreamPathTemplate": "/api/order/delete-order/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7179
+        }
+      ],
+      "DownstreamPathTemplate": "/api/order/delete-order/{id}"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7087"
+  }
+}
