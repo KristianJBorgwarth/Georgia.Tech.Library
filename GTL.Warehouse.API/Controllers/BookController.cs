@@ -9,6 +9,7 @@ using GTL.Messaging.RabbitMq.Producer;
 using GTL.Warehouse.API.Messages.BookCreatedMessage;
 using GTL.Warehouse.Persistence.Repositories;
 using System.Text.Json.Serialization;
+using GTL.Warehouse.Persistence.DTO;
 
 
 namespace GTL.Warehouse.API.Controllers
@@ -17,12 +18,12 @@ namespace GTL.Warehouse.API.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        //private readonly IProducer<BookCreatedMessage> _producer;
+        private readonly IProducer<BookCreatedMessage> _producer;
         private readonly IBookRepository _repository;
 
-        public BookController(/*IProducer<BookCreatedMessage> producer,*/ IBookRepository repository)
+        public BookController(IProducer<BookCreatedMessage> producer, IBookRepository repository)
         {
-           // _producer = producer;
+            _producer = producer;
             _repository = repository;
         }
 
@@ -42,7 +43,7 @@ namespace GTL.Warehouse.API.Controllers
         [HttpGet("bookid/{id}")]
         public async Task<IActionResult> GetBookById(Guid id)
         {
-           var book = await _repository.GetBooksByUserIdAsync(id);
+            var book = await _repository.GetBookByBookIdAsync(id);
             if (book == null)
             {
                 return NotFound(new { Message = $"Book with ID {id} not found." });
@@ -55,24 +56,41 @@ namespace GTL.Warehouse.API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateBook([FromBody] Book newBook)
-        { 
+        public async Task<IActionResult> CreateBook([FromBody] CreateBookDTO newBookDTO)
+        {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            newBook.Id = Guid.NewGuid();
+
+
+            var existingBookDetails = await _repository.GetBookDetailsByIdAsync(newBookDTO.BookDetailsId);
+            if (existingBookDetails == null)
+            {
+                return BadRequest("No BookDetails found with the provided id");
+            }
+
+            var newBook = new Book
+            {
+                Id = Guid.NewGuid(),
+                Title = newBookDTO.Title,
+                Price = newBookDTO.Price,
+                SellerId = newBookDTO.SellerId,
+                BookDetailsId = newBookDTO.BookDetailsId
+
+            };
+
             await _repository.AddAsync(newBook);
 
-           /* var corelationId = Guid.NewGuid();
+            var corelationId = Guid.NewGuid();
 
             var message = new BookCreatedMessage(
                 newBook.Title,
                 newBook.Price,
                 corelationId);
 
-            await _producer.PublishMessageAsync(message); */
+            await _producer.PublishMessageAsync(message);
 
             return CreatedAtAction(nameof(GetBookById), new { id = newBook.Id }, newBook);
         }
@@ -92,15 +110,36 @@ namespace GTL.Warehouse.API.Controllers
                 return NotFound(new { Message = $"No books found with the title conatining '{title}.'" });
             }
             return Ok(books);
-                    
         }
-        [HttpDelete("{id}")]
+
+        [HttpGet("BookAmountByTitleAndBookDetails")]
+        public async Task<IActionResult> GetBookCountByTitleAndBookDetailsId(string title, Guid bookDetailsId)
+        {
+            if (string.IsNullOrEmpty(title)) { throw new ArgumentNullException(nameof(title)); }
+
+            var bookAmount = await _repository.GetBookCountByIdAndTitleAsync(title, bookDetailsId);
+            if (bookAmount == null)
+            {
+                return NotFound(new
+                {
+                    Message = $"No books found with the title contatining '{title}' and id '{bookDetailsId}'"
+                });
+            }
+
+            return Ok(bookAmount);
+        }
+
+
+
+
+
+        [HttpDelete("UserId/{id}")]
         public async Task<IActionResult> DeleteBookOfUser(Guid id)
         {
             await _repository.DeleteBookWithUserIdAsync(id);
             return Ok();
         }
-        [HttpGet("userId/{id}")]
+        [HttpGet("userId")]
         public async Task<IActionResult> GetBooksByUserId(Guid userId)
         {
             var books = await _repository.GetBooksByUserIdAsync(userId);
