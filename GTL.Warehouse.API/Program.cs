@@ -1,5 +1,6 @@
 using System.Reflection;
 using GTL.Messaging.RabbitMq.Configuration;
+using GTL.Messaging.RabbitMq.Messages.BookMessages;
 using GTL.Messaging.RabbitMq.Messages.CustomerMessages;
 using GTL.Messaging.RabbitMq.Messages.OrderMessages;
 using GTL.Warehouse.API.Messages.BookCreatedMessage;
@@ -41,7 +42,9 @@ builder.Services.AddWarehousePersistence(configuration);
 #region MassTransit (Messaging)
 
 builder.Services.Configure<RabbitMqSettings>(configuration.GetSection("RabbitMq"));
-builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly());
+builder.Services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly())
+    .AddProducer<BookCreatedMessage>().
+    AddProducer<BookQuantityChangedMessage>();
    // .AddProducer<CustomerDeletedMessage>();
     
     
